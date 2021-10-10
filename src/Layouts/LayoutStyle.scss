@@ -1,0 +1,17 @@
+.authLayout{
+    display: flex;
+    .imgItem{
+        width: 50%;
+        h3{
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            max-width: 20%;
+            font-weight: 600;
+        }
+        img{
+            display: block;
+            width: 100%;
+        }
+    }
+}

@@ -1,0 +1,17 @@
+.createModal {
+    min-width: 600px;
+    .modalTitle {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        h4{
+            margin-bottom: 0;
+            line-height: 40px;
+        }
+    }
+    .modalBody{
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+}

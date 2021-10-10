@@ -1,0 +1,19 @@
+.termList{
+    width: 100%;
+    background-color: #f6f7fb;
+    .termItem{
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        margin-left: 0;
+        margin: 10px 0;
+        p{
+            margin-bottom: 0;
+            width: 40%;
+        }
+        hr{
+            margin: 0;
+            margin-right: 30px;
+        }
+    }
+}

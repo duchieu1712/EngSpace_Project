@@ -1,0 +1,41 @@
+.MuiBox-root {
+    .input {
+        display: block;
+        margin: 20px 0;
+        width: 50%;
+    }
+    .img {
+        margin-top: 30px;
+    }
+}
+
+.terms {
+    background-color: #f6f7fb;
+    position: relative;
+    .termItem {
+        margin: 20px 0;
+        width: 100%;
+        .headItem {
+            display: flex;
+            padding: 20px;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+            h6 {
+                margin-bottom: 0;
+            }
+        }
+        .bodyItem {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            .content {
+                width: 46%;
+            }
+        }
+    }
+    .btnSubmit{
+        text-align: end;
+    }
+}

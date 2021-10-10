@@ -1,0 +1,13 @@
+.paper {
+    margin: 60px;
+    .card_item {
+        width: inherit;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        p{
+            margin-bottom: 0;
+        }
+    }
+}

@@ -1,0 +1,36 @@
+.improve{
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 200px;
+    h2{
+        text-align: center;
+        font-size: 35px;
+        font-weight: 600;
+        margin-bottom: 100px;
+        em{
+            padding: 40px;
+            background: url('../../Assets/image/circle.svg') center center no-repeat;
+        }
+    }
+    .item{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 100px;
+        .text{
+            width: 45%;
+        }
+        img{
+            width: 45%;
+        }
+        // @media screen and (max-width: 768px) {
+        //     display: block;
+        //     .text{
+        //         width: 100%;
+        //     }
+        //     img{
+        //         width: 100%;
+        //     }
+        // }
+    }
+}

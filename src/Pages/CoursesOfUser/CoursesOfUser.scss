@@ -1,0 +1,13 @@
+.courseBackground {
+    background-color: #f6f7fb;
+    .head {
+        display: flex;
+        justify-content: space-between;
+    }
+    .courses {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+}
