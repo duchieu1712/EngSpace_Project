@@ -39,14 +39,16 @@ export default function Learn() {
   };
 
   const createOptions = () => {
-   quizList.map((item, index) => {
-      if (index !== currentQuiz && index < 4) {
-        options.push(item);
+    quizList.map((item, index) => {
+      if (index !== currentQuiz && item !== undefined && index < 4) {
+        // options.push(item);
+        setOptions((arr) => [...arr, item]);
       }
     });
     // console.log("randomOption",randomOption);
     // setOptions((arr) => [...arr, randomOption]);
-    options.push(quizList[currentQuiz]);
+    setOptions((arr) => [...arr, quizList[currentQuiz]]);
+    // options.push(quizList[currentQuiz]);
   };
 
   useEffect(() => {
@@ -57,25 +59,25 @@ export default function Learn() {
     createOptions();
   }, [quizList]);
 
-  // useEffect(() => {
-  //   setOptions(options.sort(() => Math.round(Math.random()) - 0.5));
-  // }, [options]);
+  useEffect(() => {
+    setOptions(options.sort(() => Math.round(Math.random()) - 0.5));
+  }, [options]);
 
   const handleOption = (optionItem) => {
-    if(optionItem == quizList[currentQuiz].word){
-      console.log('yes');
-      setTotal(total + 1)
-    }else{
-      console.log('no');
+    if (optionItem == quizList[currentQuiz].word) {
+      console.log("yes");
+      setTotal(total + 1);
+    } else {
+      console.log("no");
     }
-  }
+  };
 
   console.log(quizList);
   console.log("options", options);
   console.log(total);
 
   return (
-    <Box className="content">
+    <Box className="contentLearn">
       <Box className="define">
         <h6>Định nghĩa</h6>
         <p>{quizList[currentQuiz]?.define}</p>
@@ -83,9 +85,13 @@ export default function Learn() {
       <Box className="options">
         <h6>Chọn thuật ngữ đúng</h6>
         {options.map((item, index) => {
-          if (item !== undefined && index < 5) {
+          if (item !== undefined) {
             return (
-              <Box className="optionItem" key={index} onClick={() => handleOption(item.word)}>
+              <Box
+                className="optionItem"
+                key={index}
+                onClick={() => handleOption(item.word)}
+              >
                 <p>{item?.word}</p>
               </Box>
             );
