@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 import Slider from "react-slick";
 import "./FlashCard.scss";
 import ReactCardFlip from "react-card-flip";

@@ -23,7 +23,7 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path={['/', '/topic', '/about', '/faq', '/mycourses', '/profile', '/coursedetail/:courseID','/createcourse']}>
+        <Route exact path={['/', '/topic', '/about', '/faq', '/mycourses', '/profile', '/coursedetail/:courseID', '/createcourse']}>
           <HomeLayout>
             <Switch>
               <Route exact path='/' component={Home} />
@@ -34,12 +34,11 @@ function App() {
               <Route exact path='/coursedetail/:courseID' component={CourseDetail} />
               <Route exact path='/profile' component={Profile} />
               <Route exact path='/createcourse' component={CreateCourse} />
-              
             </Switch>
           </HomeLayout>
         </Route>
 
-        <Route exact path={['/signin','/signup']}>
+        <Route exact path={['/signin', '/signup']}>
           <AuthLayout>
             <Switch>
               <Route exact path='/signin' component={Signin} />
@@ -48,7 +47,7 @@ function App() {
           </AuthLayout>
         </Route>
 
-        <Route exact path={['/admin','/admin/user','/admin/topic']}>
+        <Route exact path={['/admin', '/admin/user', '/admin/topic']}>
           <AdminLayout>
             <Switch>
               <Route exact path='/admin' component={Dashboard} />

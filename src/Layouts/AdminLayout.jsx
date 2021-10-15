@@ -34,7 +34,7 @@ const MainStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function AdminLayout(props) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   return (
     <RootStyle>

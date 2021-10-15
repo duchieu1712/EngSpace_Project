@@ -1,7 +1,6 @@
 import React from "react";
 import "./ImproveScore.scss";
 import flashcard from "../../Assets/image/FlashCard.png";
-import { style } from "@mui/system";
 const ImproveScore = () => {
   return (
     <div className="improve">

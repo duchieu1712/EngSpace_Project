@@ -7,7 +7,7 @@ const Carousel = () => {
     <div className="background">
       <div className="content">
         <div className="overlay"></div>
-        <img src={carouselImg} />
+        <img src={carouselImg} alt=""/>
         <div className="text">
           <h4>Trở thành phiên bản xuất sắc nhất của chính bạn</h4>
           <p>Nắm vững kiến thức từ vựng cho ngành học của mình</p>

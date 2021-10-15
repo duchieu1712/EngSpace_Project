@@ -1,6 +1,5 @@
 import {
   Container,
-  Typography,
   Tabs,
   Tab,
   Box,

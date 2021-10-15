@@ -1,0 +1,31 @@
+.MuiBox-root{
+    .content{
+        margin-left: 0;
+        margin-right: 0;
+        max-width: 500px;
+        .define{
+            display: block;
+            margin-bottom: 150px;
+        }
+        .options{
+            display: flex;
+            flex-wrap: wrap;
+            h6{
+                display: block;
+                width: 100%;
+            }
+            .optionItem{
+                width: 200px;
+                margin: 10px;
+                border: 2px solid #939bb4;
+                padding: 10px;
+                padding-left: 20px;
+                border-radius: 10px;
+                cursor: pointer;
+                p{
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}

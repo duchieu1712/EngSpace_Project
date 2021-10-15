@@ -1,6 +1,5 @@
 import React from "react";
 import NavSection from "./NavSection";
-import { makeStyles } from "@mui/styles";
 
 import { Box, Hidden, Divider, Drawer, Typography } from "@mui/material";
 

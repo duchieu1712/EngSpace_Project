@@ -1,8 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
 import "./Feedback.scss";
-import open from "../../Assets/image/quotes-open.svg";
-import close from "../../Assets/image/quotes-close.svg";
 import MyButton from "../../Utils/Button/MyButton";
 import { NavLink } from "react-router-dom";
 const Feedback = () => {
@@ -33,7 +31,7 @@ const Feedback = () => {
         <p>Bạn đã sẵn sàng cải thiện điểm số ?</p>
         <NavLink to='/signup'>
           <MyButton>Bắt đầu học</MyButton>
-        </NavLink>
+        </NavLink> 
       </div>
     </div>
   );

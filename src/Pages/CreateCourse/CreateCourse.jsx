@@ -13,7 +13,6 @@ import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import React, { useState, useEffect } from "react";
 import MyButton from "../../Utils/Button/MyButton";
 import "./CreateCourse.scss";
-import { flexbox } from "@mui/system";
 
 export default function CreateCourse() {
   const [listTerm, setListTerm] = useState([{ term: "", define: "" }]);

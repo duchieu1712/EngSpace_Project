@@ -6,7 +6,7 @@ const AuthLayout = (props) => {
     <div className="authLayout">
       <div className="imgItem">
         <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste?</h3>
-        <img src={authImg} />
+        <img src={authImg} alt=""/>
       </div>
       <div style={{width:"50%"}}>{props.children}</div>
     </div>
