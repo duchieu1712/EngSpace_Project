@@ -5,7 +5,7 @@
         max-width: 500px;
         .define{
             display: block;
-            margin-bottom: 150px;
+            margin-bottom: 100px;
         }
         .options{
             display: flex;
@@ -26,6 +26,9 @@
                     margin-bottom: 0;
                 }
             }
+        }
+        .MuiAlert-icon{
+            align-items: center;
         }
     }
 }

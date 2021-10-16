@@ -1,5 +1,8 @@
-import { Box, Paper } from "@mui/material";
+import Box from "@mui/material/Box";
 import React, { useEffect, useState } from "react";
+import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
+import Collapse from "@mui/material/Collapse";
 import "./Learn.scss";
 
 export default function Learn() {
@@ -32,7 +35,9 @@ export default function Learn() {
   const [quizList, setQuizList] = useState([]);
   const [options, setOptions] = useState([]);
   const [currentQuiz, setCurrentQuiz] = useState(0);
-  const [total, setTotal] = useState(0);
+  const [checkAnswer, setCheckAnswer] = useState(false);
+  const [result, setResult] = useState(0);
+  const [open, setOpen] = useState(false);
 
   const createQuizs = () => {
     setQuizList(terms.sort(() => Math.round(Math.random()) - 0.5));
@@ -40,15 +45,12 @@ export default function Learn() {
 
   const createOptions = () => {
     quizList.map((item, index) => {
-      if (index !== currentQuiz && item !== undefined && index < 4) {
-        // options.push(item);
+      if (index !== currentQuiz && item !== undefined ) {
         setOptions((arr) => [...arr, item]);
       }
     });
-    // console.log("randomOption",randomOption);
-    // setOptions((arr) => [...arr, randomOption]);
     setOptions((arr) => [...arr, quizList[currentQuiz]]);
-    // options.push(quizList[currentQuiz]);
+    setOptions((arr) => [...arr.sort(() => Math.round(Math.random()) - 0.5)]);
   };
 
   useEffect(() => {
@@ -59,22 +61,34 @@ export default function Learn() {
     createOptions();
   }, [quizList]);
 
-  useEffect(() => {
-    setOptions(options.sort(() => Math.round(Math.random()) - 0.5));
-  }, [options]);
+  // useEffect(() => {
+  //   handleNext()
+  // },[currentQuiz])
 
-  const handleOption = (optionItem) => {
-    if (optionItem == quizList[currentQuiz].word) {
-      console.log("yes");
-      setTotal(total + 1);
+  const handleResult = (optionItem) => {
+    setOpen(true);
+    if (optionItem === quizList[currentQuiz].word) {
+      setCheckAnswer(true);
+      setResult(result + 1);
     } else {
+      setCheckAnswer(false);
       console.log("no");
     }
   };
+  const handleNext = () => {
+    if(currentQuiz < quizList.length){
+      setCurrentQuiz(currentQuiz + 1)
+    }else{
+      setCurrentQuiz(0);
+    }
+    setOptions([])
+    createOptions()
+    setOpen(false)
+  }
 
   console.log(quizList);
   console.log("options", options);
-  console.log(total);
+  console.log(result);
 
   return (
     <Box className="contentLearn">
@@ -90,7 +104,7 @@ export default function Learn() {
               <Box
                 className="optionItem"
                 key={index}
-                onClick={() => handleOption(item.word)}
+                onClick={() => handleResult(item.word)}
               >
                 <p>{item?.word}</p>
               </Box>
@@ -98,6 +112,17 @@ export default function Learn() {
           }
         })}
       </Box>
+      <Collapse in={open}>
+        {checkAnswer ? (
+          <Alert severity="success">
+            This is a success alert — check it out!<Button onClick={handleNext}>click</Button>
+          </Alert>
+        ) : (
+          <Alert severity="error">
+            This is an error alert — check it out!<Button onClick={handleNext}>click</Button>
+          </Alert>
+        )}
+      </Collapse>
     </Box>
   );
 }
