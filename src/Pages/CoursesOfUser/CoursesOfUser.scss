@@ -1,13 +1,15 @@
 .courseBackground {
     background-color: #f6f7fb;
     .head {
-        display: flex;
-        justify-content: space-between;
+        padding: 30px 0;
+        background-color: #fff;
     }
     .courses {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        .courseItem{
+            margin-right: 30px;
+        }
     }
 
 }

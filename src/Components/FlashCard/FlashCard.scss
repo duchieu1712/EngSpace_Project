@@ -11,3 +11,13 @@
         }
     }
 }
+
+.position{
+    position: relative;
+    h5{
+        position: absolute;
+        left: 50%;
+        bottom: 2%;
+        transform: translateX(-50%);
+    }
+}

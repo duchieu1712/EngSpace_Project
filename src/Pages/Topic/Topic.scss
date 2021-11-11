@@ -1,6 +1,11 @@
-.slick-next{
+.slick-next {
     color: #000;
 }
-.slick-prev{
+.slick-prev {
     color: #000;
+}
+.slick-list {
+    .slick-track {
+        width: max-content!important;
+    }
 }

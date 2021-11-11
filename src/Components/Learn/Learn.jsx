@@ -4,66 +4,52 @@ import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import Collapse from "@mui/material/Collapse";
 import "./Learn.scss";
+import Dialog from "@mui/material/Dialog";
 
-export default function Learn() {
-  const terms = [
-    {
-      word: "go",
-      define: "đi",
-    },
-    {
-      word: "hi",
-      define: "chào",
-    },
-    {
-      word: "bye",
-      define: "tạm biệt",
-    },
-    {
-      word: "good",
-      define: "tốt",
-    },
-    {
-      word: "eat",
-      define: "ăn",
-    },
-    {
-      word: "drink",
-      define: "uống",
-    },
-  ];
+export default function Learn({terms}) {
   const [quizList, setQuizList] = useState([]);
   const [options, setOptions] = useState([]);
   const [currentQuiz, setCurrentQuiz] = useState(0);
   const [checkAnswer, setCheckAnswer] = useState(false);
   const [result, setResult] = useState(0);
+  const [total, setTotal] = useState(0);
   const [open, setOpen] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
 
-  const createQuizs = () => {
-    setQuizList(terms.sort(() => Math.round(Math.random()) - 0.5));
+  const createQuizsAndOptions = () => {
+    let list = terms.sort(() => Math.round(Math.random()) - 0.5);
+    // this step is to synchronize the input list for quiz and option
+    setQuizList(list);
+    createOptions(list);
   };
 
-  const createOptions = () => {
-    quizList.map((item, index) => {
-      if (index !== currentQuiz && item !== undefined ) {
-        setOptions((arr) => [...arr, item]);
+  const createOptions = (list) => {
+    // reset the options before adding new one
+    setOptions([]);
+    // number of option that would show
+    // let numOpts = 4;
+    let tempQuiz = [...list];
+    // tempQuiz = tempQuiz.sort(() => Math.round(Math.random()) - 0.5)
+    let count = 0;
+    tempQuiz.map((item, index) => {
+      if (item.word !== list[currentQuiz].word) {
+        // because it needs 1 space for correct answer
+        if (count <= 2) {
+          setOptions((arr) => [...arr, item]);
+          count++;
+        }
       }
     });
-    setOptions((arr) => [...arr, quizList[currentQuiz]]);
+    setOptions((arr) => [...arr, list[currentQuiz]]);
     setOptions((arr) => [...arr.sort(() => Math.round(Math.random()) - 0.5)]);
   };
 
   useEffect(() => {
-    createQuizs();
-  }, []);
-
-  useEffect(() => {
-    createOptions();
-  }, [quizList]);
-
-  // useEffect(() => {
-  //   handleNext()
-  // },[currentQuiz])
+    createQuizsAndOptions();
+  }, [currentQuiz]);
+  const handleClose = () => {
+    setOpenDialog(false);
+  };
 
   const handleResult = (optionItem) => {
     setOpen(true);
@@ -72,23 +58,17 @@ export default function Learn() {
       setResult(result + 1);
     } else {
       setCheckAnswer(false);
-      console.log("no");
     }
+    setTotal(total + 1);
   };
   const handleNext = () => {
-    if(currentQuiz < quizList.length){
-      setCurrentQuiz(currentQuiz + 1)
-    }else{
+    if (currentQuiz < quizList.length - 1) {
+      setCurrentQuiz(currentQuiz + 1);
+    } else {
       setCurrentQuiz(0);
     }
-    setOptions([])
-    createOptions()
-    setOpen(false)
-  }
-
-  console.log(quizList);
-  console.log("options", options);
-  console.log(result);
+    setOpen(false);
+  };
 
   return (
     <Box className="contentLearn">
@@ -115,14 +95,27 @@ export default function Learn() {
       <Collapse in={open}>
         {checkAnswer ? (
           <Alert severity="success">
-            This is a success alert — check it out!<Button onClick={handleNext}>click</Button>
+            Bạn đang làm tốt lắm !!!
+            <Button onClick={handleNext} style={{ marginLeft: "40px" }}>
+              Câu tiếp theo
+            </Button>
+            <Button onClick={() => setOpenDialog(true)}>Hoàn thành</Button>
           </Alert>
         ) : (
           <Alert severity="error">
-            This is an error alert — check it out!<Button onClick={handleNext}>click</Button>
+            Bạn cần cố gắng nhiều hơn !!!
+            <Button onClick={handleNext}>Câu tiếp theo</Button>
+            <Button onClick={() => setOpenDialog(true)}>Hoàn thành</Button>
           </Alert>
         )}
       </Collapse>
+      <Dialog open={openDialog} onClose={handleClose}>
+        <Box style={{minWidth:"400px", display:"flex",alignItems:"center", justifyContent:"center", minHeight:"150px"}}>
+          <h6 style={{marginBottom: 0}}>
+            Bạn trả lời đúng {result} câu trên tổng số {total} câu
+          </h6>
+        </Box>
+      </Dialog>
     </Box>
   );
 }

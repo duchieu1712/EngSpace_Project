@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Grid, InputBase } from "@mui/material";
 import TableForm from "../../Components/TableForm/TableForm";
 import SearchIcon from "@mui/icons-material/Search";
+import { useDispatch } from "react-redux";
+import {getUserList} from '../../Redux/Actions/user';
 
 const UserManagement = () => {
   const columns = [
@@ -29,7 +31,10 @@ const UserManagement = () => {
       format: (value) => value.toFixed(2),
     },
   ];
-
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUserList());
+  },[])
   const rows = [
     {
       ID: 123,

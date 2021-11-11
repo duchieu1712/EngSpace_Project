@@ -1,0 +1,36 @@
+.folderBackground {
+    background-color: #f6f7fb;
+    .head {
+        background-color: #fff;
+        padding: 50px 0;
+    }
+    .folderItem {
+        margin: 50px 0;
+        .folderTitle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .coursesFolder {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
+}
+.addCourseBody {
+    padding: 10px;
+    .courseItem {
+        padding: 10px;
+        margin-left: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin: 20px 0;
+    }
+}
+.MuiDialog-container {
+    .css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+        max-width: 650px;
+    }
+}

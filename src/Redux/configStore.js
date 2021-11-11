@@ -5,6 +5,9 @@ import {
     createStore
 } from 'redux';
 import thunk from "redux-thunk";
+import userReducer from './Reducers/userReducer';
+import topicReducer from './Reducers/topicReducer';
+import courseReducer from './Reducers/courseReducer';
 
 const enhanceCompose = compose(
     applyMiddleware(thunk),
@@ -12,6 +15,9 @@ const enhanceCompose = compose(
 );
 
 const rootReducer = combineReducers({
+    userReducer,
+    topicReducer,
+    courseReducer
 })
 
 const store = createStore(

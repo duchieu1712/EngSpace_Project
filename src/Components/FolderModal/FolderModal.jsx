@@ -1,9 +1,13 @@
-import { Box, Divider, IconButton, TextField } from "@mui/material";
+import { Box, Button, Divider, IconButton, TextField } from "@mui/material";
 import React, { useState } from "react";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import "./CreateFolderModal.scss";
-export default function CreateFolderModal({ onClose }) {
-  const [folder, setFolder] = useState({ name: "", description: "" });
+import MyButton from "../../Utils/Button/MyButton";
+import "./FolderModal.scss";
+export default function FolderModal({ onClose, folderSelected, isUpdate }) {
+  const [folder, setFolder] = useState({
+    name: folderSelected.nameFolder || "",
+    description: folderSelected.description || "",
+  });
   const handleClose = () => {
     onClose();
   };
@@ -11,11 +15,18 @@ export default function CreateFolderModal({ onClose }) {
     const { name, value } = e.target;
     setFolder((obj) => ({ ...obj, [name]: value }));
   };
-  console.log(folder);
+  const handleSubmit = () => {
+    if(isUpdate){
+      console.log(folderSelected.idFolder, folder);
+    }else {
+      console.log(folder);
+    }
+  }
+
   return (
     <Box className="createModal">
       <Box className="modalTitle">
-        <h4>Tạo thư mục</h4>
+        <h4>{isUpdate ? "Sửa thư mục" : "Thêm thư mục"}</h4>
         <IconButton onClick={handleClose}>
           <CloseRoundedIcon />
         </IconButton>
@@ -26,14 +37,19 @@ export default function CreateFolderModal({ onClose }) {
           label="Tên thư mục"
           name="name"
           style={{ width: "45%" }}
+          value={folder.name}
           onChange={(e) => handleChange(e)}
         />
         <TextField
           label="Mô tả"
           name="description"
+          value={folder.description}
           style={{ width: "45%" }}
           onChange={(e) => handleChange(e)}
         />
+      </Box>
+      <Box style={{ width: "100%", textAlign: "right" }}>
+        <MyButton onClick={handleSubmit}>{isUpdate ? "Cập nhật" : "Thêm"}</MyButton>
       </Box>
     </Box>
   );

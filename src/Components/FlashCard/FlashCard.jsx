@@ -6,7 +6,7 @@ import ReactCardFlip from "react-card-flip";
 import KeyboardArrowLeftRoundedIcon from "@mui/icons-material/KeyboardArrowLeftRounded";
 import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
 
-const FlashCard = () => {
+const FlashCard = ({ terms }) => {
   const settings = {
     infinite: true,
     speed: 500,
@@ -24,31 +24,25 @@ const FlashCard = () => {
   return (
     <Box sx={{ width: 600 }}>
       <Slider {...settings}>
-        <ReactCardFlip isFlipped={flipped} flipDirection="vertical">
-          <Paper elevation={6} className="paper">
-            <div className="card_item" onClick={handleClick}>
-              <p>front</p>
-            </div>
-          </Paper>
-          <Paper elevation={6} className="paper">
-            <div className="card_item" onClick={handleClick}>
-              <p>back</p>
-            </div>
-          </Paper>
-        </ReactCardFlip>
-
-        <ReactCardFlip isFlipped={flipped} flipDirection="vertical">
-          <Paper elevation={6} className="paper">
-            <div className="card_item" onClick={handleClick}>
-              <p>front</p>
-            </div>
-          </Paper>
-          <Paper elevation={6} className="paper">
-            <div className="card_item" onClick={handleClick}>
-              <p>back</p>
-            </div>
-          </Paper>
-        </ReactCardFlip>
+        {terms.map((item, index) => (
+          <Box className="position">
+            <ReactCardFlip isFlipped={flipped} flipDirection="vertical">
+              <Paper elevation={6} className="paper">
+                <div className="card_item" onClick={handleClick}>
+                  <p>{item.word}</p>
+                </div>
+              </Paper>
+              <Paper elevation={6} className="paper">
+                <div className="card_item" onClick={handleClick}>
+                  <p>{item.define}</p>
+                </div>
+              </Paper>
+            </ReactCardFlip>
+            <h5>
+              {index + 1} / {terms.length}
+            </h5>
+          </Box>
+        ))}
       </Slider>
     </Box>
   );

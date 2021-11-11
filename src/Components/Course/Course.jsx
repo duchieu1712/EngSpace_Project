@@ -13,7 +13,7 @@ const Course = (props) => {
   const { course } = props;
 
   return (
-    <NavLink to={`/coursedetail/${course.id}`}>
+    <NavLink to={`/coursedetail/${course.id}`} style={{textDecoration:"none"}}>
       <Card className="card">
         <CardActionArea>
           <CardMedia
@@ -27,8 +27,10 @@ const Course = (props) => {
               {course.name}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Lizards are a widespread group of squamate reptiles, with over
-              6,000 species, ranging across all continents except Antarctica
+              {course.description}
+            </Typography>
+            <Typography variant="subtitle2" style={{marginTop:"20px"}}>
+              Create by {course.user.username}
             </Typography>
           </CardContent>
         </CardActionArea>

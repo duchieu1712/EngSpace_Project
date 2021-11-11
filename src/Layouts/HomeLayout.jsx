@@ -26,7 +26,7 @@ const HomeLayout = (props) => {
         navConfig={sidebarHomeConfig}
       />
       <Box sx={{marginTop:"60px"}}>{props.children}</Box>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

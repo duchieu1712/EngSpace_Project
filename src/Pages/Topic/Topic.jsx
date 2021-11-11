@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
@@ -8,6 +9,8 @@ import Slider from "react-slick";
 import KeyboardArrowLeftRoundedIcon from "@mui/icons-material/KeyboardArrowLeftRounded";
 import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
 import "./Topic.scss";
+import { getTopicList } from "../../Redux/Actions/topic";
+import { getCourseList } from "../../Redux/Actions/course";
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
@@ -15,124 +18,13 @@ function a11yProps(index) {
   };
 }
 const Topic = () => {
-  const topics = [
-    {
-      id: "123",
-      name: "Khoa học",
-      courses: [
-        {
-          id: "1",
-          name: "Toán",
-          terms: [
-            { id: "1", name: "hello", descrip: "chào" },
-            { id: "2", name: "bye", descrip: "tạm biệt" },
-          ],
-        },
-        {
-          id: "2",
-          name: "Lý",
-          terms: [
-            { id: "1", name: "hello", descrip: "chào" },
-            { id: "2", name: "bye", descrip: "tạm biệt" },
-          ],
-        },
-        {
-          id: "2",
-          name: "Lý",
-          terms: [
-            { id: "1", name: "hello", descrip: "chào" },
-            { id: "2", name: "bye", descrip: "tạm biệt" },
-          ],
-        },
-        {
-          id: "2",
-          name: "Lý",
-          terms: [
-            { id: "1", name: "hello", descrip: "chào" },
-            { id: "2", name: "bye", descrip: "tạm biệt" },
-          ],
-        },
-        {
-          id: "2",
-          name: "Lý",
-          terms: [
-            { id: "1", name: "hello", descrip: "chào" },
-            { id: "2", name: "bye", descrip: "tạm biệt" },
-          ],
-        },
-        {
-          id: "2",
-          name: "Lý",
-          terms: [
-            { id: "1", name: "hello", descrip: "chào" },
-            { id: "2", name: "bye", descrip: "tạm biệt" },
-          ],
-        },
-        {
-          id: "2",
-          name: "Lý",
-          terms: [
-            { id: "1", name: "hello", descrip: "chào" },
-            { id: "2", name: "bye", descrip: "tạm biệt" },
-          ],
-        },
-        {
-          id: "2",
-          name: "Lý",
-          terms: [
-            { id: "1", name: "hello", descrip: "chào" },
-            { id: "2", name: "bye", descrip: "tạm biệt" },
-          ],
-        },
-      ],
-    },
-    {
-      id: "12",
-      name: "Xã hội",
-      courses: [
-        {
-          id: "1",
-          name: "Văn",
-          terms: [
-            { id: "1", name: "hello", descrip: "chào" },
-            { id: "2", name: "bye", descrip: "tạm biệt" },
-          ],
-        },
-        {
-          id: "2",
-          name: "Sử",
-          terms: [
-            { id: "1", name: "hello", descrip: "chào" },
-            { id: "2", name: "bye", descrip: "tạm biệt" },
-          ],
-        },
-        {
-          id: "2",
-          name: "Sử",
-          terms: [
-            { id: "1", name: "hello", descrip: "chào" },
-            { id: "2", name: "bye", descrip: "tạm biệt" },
-          ],
-        },
-        {
-          id: "2",
-          name: "Sử",
-          terms: [
-            { id: "1", name: "hello", descrip: "chào" },
-            { id: "2", name: "bye", descrip: "tạm biệt" },
-          ],
-        },
-        {
-          id: "2",
-          name: "Sử",
-          terms: [
-            { id: "1", name: "hello", descrip: "chào" },
-            { id: "2", name: "bye", descrip: "tạm biệt" },
-          ],
-        },
-      ],
-    },
-  ];
+  const dispatch = useDispatch();
+  const { topicList } = useSelector((state) => state.topicReducer);
+  const { courseList } = useSelector((state) => state.courseReducer);
+  useEffect(() => {
+    dispatch(getTopicList());
+    dispatch(getCourseList());
+  }, []);
 
   let settings = {
     infinite: true,
@@ -185,19 +77,22 @@ const Topic = () => {
           onChange={handleChange}
           variant="scrollable"
           scrollButtons="auto"
-          aria-label="scrollable auto tabs example"
         >
-          {topics.map((topic, index) => (
+          {topicList.map((topic, index) => (
             <Tab label={topic.name} {...a11yProps(index)} />
           ))}
         </Tabs>
       </Box>
-      {topics.map((topic, index) => (
+      {topicList.map((topic, index) => (
         <TabPanel value={value} index={index}>
           <Slider {...settings}>
-            {topic.courses.map((course) => (
-              <Course course={course} />
-            ))}
+            {courseList.map((course) => {
+              if (course.topic === topic.id) {
+                console.log("abbc");
+                return <Course course={course} />;
+              }
+              // course.topic === topic.id && <Course course={course} />
+            })}
           </Slider>
         </TabPanel>
       ))}

@@ -21,6 +21,7 @@ import PersonAddAlt1RoundedIcon from "@mui/icons-material/PersonAddAlt1Rounded";
 import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
 import "./CourseDetail.scss";
 import Learn from "../../Components/Learn/Learn";
+import Writing from "../../Components/Writing/Writing";
 
 function a11yProps(index) {
   return {
@@ -30,6 +31,40 @@ function a11yProps(index) {
 }
 
 const CourseDetail = () => {
+  const terms = [
+    {
+      word: "go",
+      define: "đi",
+    },
+    {
+      word: "hi",
+      define: "chào",
+    },
+    {
+      word: "bye",
+      define: "tạm biệt",
+    },
+    {
+      word: "good",
+      define: "tốt",
+    },
+    {
+      word: "eat",
+      define: "ăn",
+    },
+    {
+      word: "drink",
+      define: "uống",
+    },
+    {
+      word: "water",
+      define: "nước",
+    },
+    {
+      word: "rock",
+      define: "đá",
+    },
+  ];
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -67,13 +102,13 @@ const CourseDetail = () => {
           </Tabs>
           <Box sx={{ marginLeft: 20 }}>
             <VerticalPanel value={value} index={0}>
-              <FlashCard />
+              <FlashCard terms={terms}/>
             </VerticalPanel>
             <VerticalPanel value={value} index={1}>
-              <Learn />
+              <Learn terms={terms}/>
             </VerticalPanel>
             <VerticalPanel value={value} index={2}>
-              Viết
+              <Writing terms={terms}/>
             </VerticalPanel>
             <VerticalPanel value={value} index={3}>
               Nghe
@@ -115,16 +150,13 @@ const CourseDetail = () => {
       <Box className="termList">
         <Container fixed>
           <h4>Danh sách thuật ngữ</h4>
-          <Paper className="termItem">
-            <p>term</p>
+          {terms.map(item => (
+            <Paper className="termItem">
+            <p>{item.word}</p>
             <Divider orientation="vertical" variant="middle" flexItem />
-            <p>nghĩa</p>
+            <p>{item.define}</p>
           </Paper>
-          <Paper className="termItem">
-            <p>term</p>
-            <Divider orientation="vertical" variant="middle" flexItem />
-            <p>nghĩa</p>
-          </Paper>
+          ))}
         </Container>
       </Box>
     </Box>

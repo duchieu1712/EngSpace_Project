@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { alpha, styled } from "@mui/material/styles";
-//import { makeStyles } from "@mui/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -21,6 +20,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import { Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import logo from "../../Assets/image/logo_engspace.png";
 import "./Header.scss";
 
 const Search = styled("div")(({ theme }) => ({
@@ -111,6 +111,19 @@ export default function Header({ onHandleNav }) {
         </MenuItem>
       </NavLink>
 
+      <NavLink
+        to="/myfolders"
+        style={{ color: "black", textDecoration: "none" }}
+      >
+        <MenuItem onClick={handleMenuClose}>
+          <ListItemIcon>
+            <PersonAdd fontSize="small" />
+          </ListItemIcon>
+          Folders
+        </MenuItem>
+      </NavLink>
+
+
       <MenuItem onClick={handleMenuClose}>
         <ListItemIcon>
           <PersonAdd fontSize="small" />
@@ -160,6 +173,19 @@ export default function Header({ onHandleNav }) {
               style={{ color: "black", textDecoration: "none" }}
             >
               courses
+            </NavLink>
+          </MenuItem>
+          <MenuItem>
+            <IconButton color="inherit">
+              <Badge>
+                <SubdirectoryArrowLeftIcon />
+              </Badge>
+            </IconButton>
+            <NavLink
+              to="/myfolders"
+              style={{ color: "black", textDecoration: "none" }}
+            >
+              Folders
             </NavLink>
           </MenuItem>
           <MenuItem>
@@ -219,6 +245,7 @@ export default function Header({ onHandleNav }) {
           >
             <MenuIcon />
           </IconButton>
+          <img src={logo} style={{ width: "35px", marginRight: "10px" }} />
           <Typography
             sx={{ display: { xs: "none", sm: "block" } }}
             variant="h6"
@@ -232,7 +259,6 @@ export default function Header({ onHandleNav }) {
             </SearchIconWrapper>
             <Autocomplete
               freeSolo
-              id="free-solo-2-demo"
               sx={{ width: 300 }}
               options={fakeData}
               getOptionLabel={(option) => option.title}

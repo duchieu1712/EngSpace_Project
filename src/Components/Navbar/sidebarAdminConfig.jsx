@@ -7,5 +7,4 @@ const sidebarAdminConfig = [
   { href: "/admin/user", icon: <PeopleAltIcon />, title: "User" },
   { href: "/admin/topic", icon: <TopicIcon />, title: "Topic" },
 ];
-
 export default sidebarAdminConfig;

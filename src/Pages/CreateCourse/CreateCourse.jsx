@@ -12,6 +12,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import React, { useState, useEffect } from "react";
 import MyButton from "../../Utils/Button/MyButton";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import "./CreateCourse.scss";
 
 export default function CreateCourse() {
@@ -73,6 +77,19 @@ export default function CreateCourse() {
             onChange={handleChangeCourse("descrip")}
             fullWidth
           />
+          <FormControl fullWidth style={{width: "50%"}}>
+            <InputLabel id="demo-simple-select-label">Chủ đề</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="Chủ đề"
+              onChange={handleChangeCourse("topic")}
+            >
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
+          </FormControl>
           <TextField
             className="input img"
             type="file"
@@ -105,14 +122,14 @@ export default function CreateCourse() {
                   name="term"
                   value={item.term}
                   onChange={(e) => handleChangeTerm(e, index)}
-                  className="content"
+                  className="addInput"
                 />
                 <TextField
                   label="Định nghĩa"
                   name="define"
                   value={item.define}
                   onChange={(e) => handleChangeTerm(e, index)}
-                  className="content"
+                  className="addInput"
                 />
               </Box>
             </Paper>

@@ -14,3 +14,9 @@
 .css-168o85v-MuiAutocomplete-root .MuiOutlinedInput-root {
     padding: 0 !important;
 }
+
+.MuiBox-root{
+    .MuiAppBar-root{
+        border-radius: 0 0 20px 20px;
+    }
+}

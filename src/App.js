@@ -17,13 +17,14 @@ import Profile from './Pages/Profile/Profile';
 import CourseDetail from './Pages/CourseDetail/CourseDetail';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import CreateCourse from './Pages/CreateCourse/CreateCourse';
+import FoldersOfUser from './Pages/FoldersOfUser/FoldersOfUser';
 
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path={['/', '/topic', '/about', '/faq', '/mycourses', '/profile', '/coursedetail/:courseID', '/createcourse']}>
+        <Route exact path={['/', '/topic', '/about', '/faq', '/mycourses','/myfolders', '/profile', '/coursedetail/:courseID', '/createcourse']}>
           <HomeLayout>
             <Switch>
               <Route exact path='/' component={Home} />
@@ -31,6 +32,7 @@ function App() {
               <Route exact path='/about' component={AboutUs} />
               <Route exact path='/faq' component={FAQ} />
               <Route exact path='/mycourses' component={CoursesOfUser} />
+              <Route exact path='/myfolders' component={FoldersOfUser} />
               <Route exact path='/coursedetail/:courseID' component={CourseDetail} />
               <Route exact path='/profile' component={Profile} />
               <Route exact path='/createcourse' component={CreateCourse} />
