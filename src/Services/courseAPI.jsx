@@ -10,7 +10,7 @@ const courseAPI = {
         return axiosClient.get(path);
     },
     getCoursesByUser: (userID) => {
-        const path = `/sets/${userID}/`;
+        const path = `/sets/user/${userID}/`;
         return axiosClient.get(path);
     },
     postAddCourse: (data) => {

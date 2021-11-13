@@ -30,7 +30,7 @@ const courseReducer = (state = initialState, action) => {
       return { ...state, loading: true, error: null };
     }
     case "GET_COURSESBYUSER_SUCCESS": {
-      return { ...state, coursesByUser: action.payload.data, loading: false };
+      return { ...state, coursesByUser: action.payload.data.results, loading: false };
     }
     case "GET_COURSESBYUSER_FAIL": {
       return { ...state, error: action.payload.error, loading: false };

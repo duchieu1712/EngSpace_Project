@@ -29,7 +29,7 @@ const Feedback = () => {
       </Slider>
       <div className="ready">
         <p>Bạn đã sẵn sàng cải thiện điểm số ?</p>
-        <NavLink to='/signup'>
+        <NavLink to='/signup' style={{ textDecoration: "none" }}>
           <MyButton>Bắt đầu học</MyButton>
         </NavLink> 
       </div>

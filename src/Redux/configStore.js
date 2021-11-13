@@ -8,6 +8,7 @@ import thunk from "redux-thunk";
 import userReducer from './Reducers/userReducer';
 import topicReducer from './Reducers/topicReducer';
 import courseReducer from './Reducers/courseReducer';
+import folderReducer from './Reducers/folderReducer';
 
 const enhanceCompose = compose(
     applyMiddleware(thunk),
@@ -17,7 +18,8 @@ const enhanceCompose = compose(
 const rootReducer = combineReducers({
     userReducer,
     topicReducer,
-    courseReducer
+    courseReducer,
+    folderReducer
 })
 
 const store = createStore(

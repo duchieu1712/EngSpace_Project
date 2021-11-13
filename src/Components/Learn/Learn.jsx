@@ -32,7 +32,7 @@ export default function Learn({terms}) {
     // tempQuiz = tempQuiz.sort(() => Math.round(Math.random()) - 0.5)
     let count = 0;
     tempQuiz.map((item, index) => {
-      if (item.word !== list[currentQuiz].word) {
+      if (item.term !== list[currentQuiz].term) {
         // because it needs 1 space for correct answer
         if (count <= 2) {
           setOptions((arr) => [...arr, item]);
@@ -53,7 +53,7 @@ export default function Learn({terms}) {
 
   const handleResult = (optionItem) => {
     setOpen(true);
-    if (optionItem === quizList[currentQuiz].word) {
+    if (optionItem === quizList[currentQuiz].term) {
       setCheckAnswer(true);
       setResult(result + 1);
     } else {
@@ -74,7 +74,7 @@ export default function Learn({terms}) {
     <Box className="contentLearn">
       <Box className="define">
         <h6>Định nghĩa</h6>
-        <p>{quizList[currentQuiz]?.define}</p>
+        <p>{quizList[currentQuiz]?.definition}</p>
       </Box>
       <Box className="options">
         <h6>Chọn thuật ngữ đúng</h6>
@@ -84,9 +84,9 @@ export default function Learn({terms}) {
               <Box
                 className="optionItem"
                 key={index}
-                onClick={() => handleResult(item.word)}
+                onClick={() => handleResult(item.term)}
               >
-                <p>{item?.word}</p>
+                <p>{item?.term}</p>
               </Box>
             );
           }

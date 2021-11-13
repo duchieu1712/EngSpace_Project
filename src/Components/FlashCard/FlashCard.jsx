@@ -24,17 +24,17 @@ const FlashCard = ({ terms }) => {
   return (
     <Box sx={{ width: 600 }}>
       <Slider {...settings}>
-        {terms.map((item, index) => (
+        {terms?.map((item, index) => (
           <Box className="position">
             <ReactCardFlip isFlipped={flipped} flipDirection="vertical">
               <Paper elevation={6} className="paper">
                 <div className="card_item" onClick={handleClick}>
-                  <p>{item.word}</p>
+                  <p>{item.term}</p>
                 </div>
               </Paper>
               <Paper elevation={6} className="paper">
                 <div className="card_item" onClick={handleClick}>
-                  <p>{item.define}</p>
+                  <p>{item.definition}</p>
                 </div>
               </Paper>
             </ReactCardFlip>

@@ -1,13 +1,13 @@
-import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
-import InfoIcon from "@mui/icons-material/Info";
-import LiveHelpIcon from "@mui/icons-material/LiveHelp";
-import HomeIcon from "@mui/icons-material/Home";
+import DvrRoundedIcon from '@mui/icons-material/DvrRounded';
+import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
+import LiveHelpRoundedIcon from '@mui/icons-material/LiveHelpRounded';
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 
 const sidebarHomeConfig = [
-  { href: "/", icon: <HomeIcon />, title: "Home page" },
-  { href: "/topic", icon: <FormatListBulletedIcon />, title: "Topic" },
-  { href: "/about", icon: <InfoIcon />, title: "About us" },
-  { href: "/faq", icon: <LiveHelpIcon />, title: "FAQ" },
+  { href: "/", icon: <HomeRoundedIcon style={{fontSize:"35px"}} />, title: "Home page" },
+  { href: "/topic", icon: <DvrRoundedIcon style={{fontSize:"35px"}}/>, title: "Topic" },
+  { href: "/about", icon: <InfoRoundedIcon style={{fontSize:"35px"}}/>, title: "About us" },
+  { href: "/faq", icon: <LiveHelpRoundedIcon style={{fontSize:"35px"}}/>, title: "FAQ" },
 ];
 
 export default sidebarHomeConfig;

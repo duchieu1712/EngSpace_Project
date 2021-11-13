@@ -6,16 +6,12 @@ import Home from './Pages/Home/Home';
 import AuthLayout from './Layouts/AuthLayout';
 import Signin from './Pages/Signin/Signin';
 import Signup from './Pages/Signup/Signup';
-import AdminLayout from './Layouts/AdminLayout';
-import UserManagement from './Pages/UserManagement/UserManagement';
-import TopicManagement from './Pages/TopicManagement/TopicManagement';
 import Topic from './Pages/Topic/Topic';
 import AboutUs from './Pages/AboutUs/AboutUs';
 import FAQ from './Pages/FAQ/FAQ';
 import CoursesOfUser from './Pages/CoursesOfUser/CoursesOfUser';
 import Profile from './Pages/Profile/Profile';
 import CourseDetail from './Pages/CourseDetail/CourseDetail';
-import Dashboard from './Pages/Dashboard/Dashboard';
 import CreateCourse from './Pages/CreateCourse/CreateCourse';
 import FoldersOfUser from './Pages/FoldersOfUser/FoldersOfUser';
 
@@ -47,16 +43,6 @@ function App() {
               <Route exact path='/signup' component={Signup} />
             </Switch>
           </AuthLayout>
-        </Route>
-
-        <Route exact path={['/admin', '/admin/user', '/admin/topic']}>
-          <AdminLayout>
-            <Switch>
-              <Route exact path='/admin' component={Dashboard} />
-              <Route exact path='/admin/user' component={UserManagement} />
-              <Route exact path='/admin/topic' component={TopicManagement} />
-            </Switch>
-          </AdminLayout>
         </Route>
 
         <Redirect to='/' />

@@ -1,3 +1,4 @@
+import TokenService from "../../Services/services.token";
 import userAPI from "../../Services/userAPI";
 
 export const signIn = (user) => {
@@ -8,7 +9,7 @@ export const signIn = (user) => {
     userAPI
       .postSignIn(user)
       .then((result) => {
-        localStorage.setItem("user", JSON.stringify(result.data));
+        TokenService.setUser(result.data);
         dispatch({
           type: "SIGNIN_SUCCESS",
           payload: { data: result.data },
@@ -29,7 +30,7 @@ export const signUp = (user) => {
     userAPI
       .postSignUp(user)
       .then((result) => {
-        localStorage.setItem("user", JSON.stringify(result.data));
+        TokenService.setUser(result.data);
         dispatch({
           type: "SIGNUP_SUCCESS",
           payload: { data: result.data },

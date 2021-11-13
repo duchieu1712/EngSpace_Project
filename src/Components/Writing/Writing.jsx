@@ -17,7 +17,7 @@ export default function Writing({ terms }) {
   };
   const handleCheck = () => {
     setOpen(true);
-    if (answer === terms[currentWord].word) {
+    if (terms[currentWord].term.toLowerCase().trim().includes(answer)) {
       setCheck(true);
     } else {
       setCheck(false);
@@ -30,10 +30,14 @@ export default function Writing({ terms }) {
   };
   return (
     <div style={{ width: "100%" }}>
-      <h6>{terms[currentWord].define}</h6>
+      <h6>{terms[currentWord]?.definition}</h6>
       <Divider style={{ margin: "20px 0" }} />
       <Box>
-        <TextField label="Nhập tiếng Anh" value={answer} onChange={(e) => handleChange(e)} />
+        <TextField
+          label="Nhập tiếng Anh"
+          value={answer}
+          onChange={(e) => handleChange(e)}
+        />
         <MyButton onClick={() => handleCheck()}>Kiểm tra</MyButton>
       </Box>
 

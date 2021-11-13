@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import AddIcon from "@mui/icons-material/Add";
 import {
   Box,
@@ -12,52 +13,14 @@ import Course from "../../Components/Course/Course";
 import "./FoldersOfUser.scss";
 import FolderModal from "../../Components/FolderModal/FolderModal";
 import CourseToFolder from "../../Components/CourseToFolder/CourseToFolder";
+import { getFolderByUserID } from "../../Redux/Actions/folder";
+import Loading from "../../Components/Loading/Loading";
 export default function FoldersOfUser() {
-  const folders = [
-    {
-      idFolder: 1,
-      nameFolder: "Khoa học",
-      description: "Học phần liên quan đến khoa học",
-      courseList: [
-        {
-          id: 1,
-          name: "Toán",
-        },
-        {
-          id: 2,
-          name: "Lý",
-          folderID:1
-        },
-        {
-          id: 3,
-          name: "Hóa",
-          folderID:"1"
-        },
-        {
-          id: 4,
-          name: "Sinh",
-          folderID:"1"
-        },
-      ],
-    },
-    {
-      idFolder: 2,
-      nameFolder: "Xã hội",
-      description: "Học phần liên quan đến xã hội",
-      courseList: [
-        {
-          id: 5,
-          name: "Văn",
-          folderID:"2"
-        },
-        {
-          id: 6,
-          name: "Sử",
-          folderID:"2"
-        },
-      ],
-    },
-  ];
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getFolderByUserID(5));
+  }, []);
+  const { folderByUser, loading } = useSelector((state) => state.folderReducer);
 
   const [openModal, setOpenModal] = useState(false);
   const [openAddCourse, setOpenAddFolder] = useState(false);
@@ -86,6 +49,9 @@ export default function FoldersOfUser() {
     setOpenAddFolder(false);
   };
 
+  if(loading){
+    return <Loading/>
+  }
   return (
     <Box className="folderBackground">
       <Box className="head">
@@ -102,12 +68,12 @@ export default function FoldersOfUser() {
         </Container>
       </Box>
       <Container fixed>
-        {folders.map((item, index) => (
+        {folderByUser.map((item, index) => (
           <Box className="folderItem">
             <Box className="folderTitle">
               <Box>
-                <h4>{item.nameFolder}</h4>
-                <h6>{item.courseList.length} học phần</h6>
+                <h4>{item.name}</h4>
+                <h6>{item.sets.length} học phần</h6>
                 <p>{item.description}</p>
               </Box>
               <Box className="folderOptions">
@@ -130,10 +96,8 @@ export default function FoldersOfUser() {
             </Box>
 
             <Box className="coursesFolder">
-              {item.courseList.map((course, courseIndex) => (
-                <Box style={{ marginRight: "30px" }}>
+              {item.sets.map((course, courseIndex) => (           
                   <Course course={course} />
-                </Box>
               ))}
             </Box>
           </Box>

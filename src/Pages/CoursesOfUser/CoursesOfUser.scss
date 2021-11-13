@@ -1,5 +1,5 @@
 .courseBackground {
-    background-color: #f6f7fb;
+    background-color: grey;
     .head {
         padding: 30px 0;
         background-color: #fff;
@@ -9,6 +9,7 @@
         flex-wrap: wrap;
         .courseItem{
             margin-right: 30px;
+            width: 350px;
         }
     }
 

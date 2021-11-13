@@ -5,7 +5,7 @@ import MyButton from "../../Utils/Button/MyButton";
 import "./FolderModal.scss";
 export default function FolderModal({ onClose, folderSelected, isUpdate }) {
   const [folder, setFolder] = useState({
-    name: folderSelected.nameFolder || "",
+    name: folderSelected.name || "",
     description: folderSelected.description || "",
   });
   const handleClose = () => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { alpha, styled } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -11,17 +11,23 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import SubdirectoryArrowLeftIcon from "@mui/icons-material/SubdirectoryArrowLeft";
-import CreateIcon from "@mui/icons-material/Create";
+import LockOpenRoundedIcon from "@mui/icons-material/LockOpenRounded";
+import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/lab/Autocomplete";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import PersonAdd from "@mui/icons-material/PersonAdd";
+import LoginRoundedIcon from "@mui/icons-material/LoginRounded";
+import PermContactCalendarRoundedIcon from "@mui/icons-material/PermContactCalendarRounded";
+import FolderOpenRoundedIcon from "@mui/icons-material/FolderOpenRounded";
+import CollectionsBookmarkRoundedIcon from "@mui/icons-material/CollectionsBookmarkRounded";
 import { Button } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import logo from "../../Assets/image/logo_engspace.png";
 import "./Header.scss";
+import { useSelector, useDispatch } from "react-redux";
+import { getCourseList } from "../../Redux/Actions/course";
+import TokenService from "../../Services/services.token";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -49,18 +55,18 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   justifyContent: "center",
 }));
 
-const fakeData = [
-  { title: "The Shawshank Redemption", year: 1994 },
-  { title: "The Godfather", year: 1972 },
-  { title: "The Godfather: Part II", year: 1974 },
-  { title: "The Dark Knight", year: 2008 },
-];
 export default function Header({ onHandleNav }) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const { currentUser } = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
+  const { courseList } = useSelector((state) => state.courseReducer);
+  useEffect(() => {
+    dispatch(getCourseList());
+  }, []);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const [test, setTest] = useState(true);
+  const history = useHistory();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -73,6 +79,10 @@ export default function Header({ onHandleNav }) {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
+  };
+  const signOut = () => {
+    TokenService.removeUser();
+    window.location.href = "/";
   };
 
   const handleMobileMenuOpen = (event) => {
@@ -93,7 +103,7 @@ export default function Header({ onHandleNav }) {
       <NavLink to="/profile" style={{ color: "black", textDecoration: "none" }}>
         <MenuItem onClick={handleMenuClose}>
           <ListItemIcon>
-            <PersonAdd fontSize="small" />
+            <PermContactCalendarRoundedIcon />
           </ListItemIcon>
           Profile
         </MenuItem>
@@ -105,7 +115,7 @@ export default function Header({ onHandleNav }) {
       >
         <MenuItem onClick={handleMenuClose}>
           <ListItemIcon>
-            <PersonAdd fontSize="small" />
+            <CollectionsBookmarkRoundedIcon />
           </ListItemIcon>
           Courses
         </MenuItem>
@@ -117,16 +127,15 @@ export default function Header({ onHandleNav }) {
       >
         <MenuItem onClick={handleMenuClose}>
           <ListItemIcon>
-            <PersonAdd fontSize="small" />
+            <FolderOpenRoundedIcon />
           </ListItemIcon>
           Folders
         </MenuItem>
       </NavLink>
 
-
-      <MenuItem onClick={handleMenuClose}>
+      <MenuItem onClick={signOut}>
         <ListItemIcon>
-          <PersonAdd fontSize="small" />
+          <LogoutRoundedIcon />
         </ListItemIcon>
         Sign out
       </MenuItem>
@@ -144,17 +153,13 @@ export default function Header({ onHandleNav }) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {test ? (
+      {currentUser ? (
         <div>
           <MenuItem>
-            <IconButton
-              aria-label="account of current user"
-              aria-controls="primary-search-account-menu"
-              aria-haspopup="true"
-              color="inherit"
-            >
+            <Badge style={{ marginRight: "10px" }}>
               <AccountCircle />
-            </IconButton>
+            </Badge>
+
             <NavLink
               to="/profile"
               style={{ color: "black", textDecoration: "none" }}
@@ -163,24 +168,20 @@ export default function Header({ onHandleNav }) {
             </NavLink>
           </MenuItem>
           <MenuItem>
-            <IconButton color="inherit">
-              <Badge>
-                <SubdirectoryArrowLeftIcon />
-              </Badge>
-            </IconButton>
+            <Badge style={{ marginRight: "10px" }}>
+              <CollectionsBookmarkRoundedIcon />
+            </Badge>
             <NavLink
               to="/mycourses"
               style={{ color: "black", textDecoration: "none" }}
             >
-              courses
+              Courses
             </NavLink>
           </MenuItem>
           <MenuItem>
-            <IconButton color="inherit">
-              <Badge>
-                <SubdirectoryArrowLeftIcon />
-              </Badge>
-            </IconButton>
+            <Badge style={{ marginRight: "10px" }}>
+              <FolderOpenRoundedIcon />
+            </Badge>
             <NavLink
               to="/myfolders"
               style={{ color: "black", textDecoration: "none" }}
@@ -188,23 +189,19 @@ export default function Header({ onHandleNav }) {
               Folders
             </NavLink>
           </MenuItem>
-          <MenuItem>
-            <IconButton color="inherit">
-              <Badge>
-                <SubdirectoryArrowLeftIcon />
-              </Badge>
-            </IconButton>
-            <p>Sign out</p>
+          <MenuItem onClick={signOut}>
+            <Badge style={{ marginRight: "10px" }}>
+              <LogoutRoundedIcon />
+            </Badge>
+            Sign out
           </MenuItem>
         </div>
       ) : (
         <div>
           <MenuItem>
-            <IconButton color="inherit">
-              <Badge>
-                <SubdirectoryArrowLeftIcon />
-              </Badge>
-            </IconButton>
+            <Badge style={{ marginRight: "10px" }}>
+              <LoginRoundedIcon />
+            </Badge>
             <NavLink
               to="/signin"
               style={{ color: "black", textDecoration: "none" }}
@@ -213,11 +210,9 @@ export default function Header({ onHandleNav }) {
             </NavLink>
           </MenuItem>
           <MenuItem>
-            <IconButton color="inherit">
-              <Badge>
-                <CreateIcon />
-              </Badge>
-            </IconButton>
+            <Badge style={{ marginRight: "10px" }}>
+              <LockOpenRoundedIcon />
+            </Badge>
             <NavLink
               to="/signup"
               style={{ color: "black", textDecoration: "none" }}
@@ -247,7 +242,7 @@ export default function Header({ onHandleNav }) {
           </IconButton>
           <img src={logo} style={{ width: "35px", marginRight: "10px" }} />
           <Typography
-            sx={{ display: { xs: "none", sm: "block" } }}
+            style={{ display: { xs: "none", sm: "block" } }}
             variant="h6"
             noWrap
           >
@@ -258,11 +253,15 @@ export default function Header({ onHandleNav }) {
               <SearchIcon />
             </SearchIconWrapper>
             <Autocomplete
+              onChange={(event, value) => {
+                if (value) {
+                  history.push(`/coursedetail/${value.id}`);
+                }
+              }}
               freeSolo
+              getOptionLabel={(option) => option.name}
+              options={courseList}
               sx={{ width: 300 }}
-              options={fakeData}
-              getOptionLabel={(option) => option.title}
-              style={{ width: 300 }}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -274,7 +273,7 @@ export default function Header({ onHandleNav }) {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            {test ? (
+            {currentUser ? (
               <div>
                 <IconButton
                   edge="end"

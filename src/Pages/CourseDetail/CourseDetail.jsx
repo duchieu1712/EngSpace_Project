@@ -9,7 +9,7 @@ import {
   Paper,
   Tooltip,
 } from "@mui/material";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import VerticalPanel from "../../Utils/TabPanel/VerticalPanel";
 import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
 import DynamicFeedIcon from "@mui/icons-material/DynamicFeed";
@@ -19,9 +19,14 @@ import FlashCard from "../../Components/FlashCard/FlashCard";
 import AddIcon from "@mui/icons-material/Add";
 import PersonAddAlt1RoundedIcon from "@mui/icons-material/PersonAddAlt1Rounded";
 import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import "./CourseDetail.scss";
 import Learn from "../../Components/Learn/Learn";
 import Writing from "../../Components/Writing/Writing";
+import { useDispatch, useSelector } from "react-redux";
+import { getCourse } from "../../Redux/Actions/course";
+import Listening from "../../Components/Listening/Listening";
+import Loading from "../../Components/Loading/Loading";
 
 function a11yProps(index) {
   return {
@@ -30,50 +35,26 @@ function a11yProps(index) {
   };
 }
 
-const CourseDetail = () => {
-  const terms = [
-    {
-      word: "go",
-      define: "đi",
-    },
-    {
-      word: "hi",
-      define: "chào",
-    },
-    {
-      word: "bye",
-      define: "tạm biệt",
-    },
-    {
-      word: "good",
-      define: "tốt",
-    },
-    {
-      word: "eat",
-      define: "ăn",
-    },
-    {
-      word: "drink",
-      define: "uống",
-    },
-    {
-      word: "water",
-      define: "nước",
-    },
-    {
-      word: "rock",
-      define: "đá",
-    },
-  ];
-  const [value, setValue] = React.useState(0);
+const CourseDetail = (props) => {
+  const dispatch = useDispatch();
+  const {currentUser} = useSelector(state => state.userReducer)
+  const { course, loading } = useSelector(state => state.courseReducer)
+  useEffect(() => {
+    dispatch(getCourse(props.match.params.courseID))
+  },[props.match.params.courseID])
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  if(loading){
+    return <Loading/>
+  }
   return (
     <Box>
       <Container fixed>
-        <h2>Name course</h2>
+        <h2>{course.name}</h2>
         <Box
           sx={{
             flexGrow: 1,
@@ -102,16 +83,16 @@ const CourseDetail = () => {
           </Tabs>
           <Box sx={{ marginLeft: 20 }}>
             <VerticalPanel value={value} index={0}>
-              <FlashCard terms={terms}/>
+              <FlashCard terms={course.set_details}/>
             </VerticalPanel>
             <VerticalPanel value={value} index={1}>
-              <Learn terms={terms}/>
+              <Learn terms={course.set_details}/>
             </VerticalPanel>
             <VerticalPanel value={value} index={2}>
-              <Writing terms={terms}/>
+              <Writing terms={course.set_details}/>
             </VerticalPanel>
             <VerticalPanel value={value} index={3}>
-              Nghe
+              <Listening terms={course.set_details}/>
             </VerticalPanel>
           </Box>
         </Box>
@@ -129,6 +110,11 @@ const CourseDetail = () => {
             <p style={{ marginBottom: 0, marginLeft: "10px" }}>UserName</p>
           </Box>
           <Box>
+            <Tooltip title="Sửa học phần">
+              <IconButton>
+                <EditRoundedIcon />
+              </IconButton>
+            </Tooltip>
             <Tooltip title="Thêm học phần">
               <IconButton>
                 <AddIcon />
@@ -150,11 +136,11 @@ const CourseDetail = () => {
       <Box className="termList">
         <Container fixed>
           <h4>Danh sách thuật ngữ</h4>
-          {terms.map(item => (
+          {course.set_details?.map(item => (
             <Paper className="termItem">
-            <p>{item.word}</p>
+            <p>{item.term}</p>
             <Divider orientation="vertical" variant="middle" flexItem />
-            <p>{item.define}</p>
+            <p>{item.definition}</p>
           </Paper>
           ))}
         </Container>

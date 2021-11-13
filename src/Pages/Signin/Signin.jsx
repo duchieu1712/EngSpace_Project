@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Avatar from "@mui/material/Avatar";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,8 +12,9 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import MyButton from "../../Utils/Button/MyButton";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../../Redux/Actions/user";
+import { Redirect } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -36,6 +37,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Signin() {
+  const { currentUser, error } = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -49,6 +51,12 @@ export default function Signin() {
     );
   };
 
+  if(error){
+    alert("Sai tên tài khoản hoặc mật khẩu !!!")
+  }
+  if (currentUser) {
+    return <Redirect to="/" />;
+  }
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">

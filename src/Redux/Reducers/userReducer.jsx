@@ -12,6 +12,24 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "SIGNIN_REQUEST": {
+      return { ...state, loading: true, error: null };
+    }
+    case "SIGNIN_SUCCESS": {
+      return { ...state, currentUser: action.payload.data, loading: false };
+    }
+    case "SIGNIN_FAIL": {
+      return { ...state, loading: false, error: action.payload.error };
+    }
+    case "SIGNUP_REQUEST": {
+      return { ...state, loading: true, error: null };
+    }
+    case "SIGNUP_SUCCESS": {
+      return { ...state, currentUser: action.payload.data, loading: false };
+    }
+    case "SIGNUP_FAIL": {
+      return { ...state, loading: false, error: action.payload.error };
+    }
     case "GET_USERLIST_REQUEST": {
       return { ...state, loading: true, error: null };
     }

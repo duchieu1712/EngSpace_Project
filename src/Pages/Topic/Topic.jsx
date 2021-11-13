@@ -10,7 +10,7 @@ import KeyboardArrowLeftRoundedIcon from "@mui/icons-material/KeyboardArrowLeftR
 import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
 import "./Topic.scss";
 import { getTopicList } from "../../Redux/Actions/topic";
-import { getCourseList } from "../../Redux/Actions/course";
+import Loading from "../../Components/Loading/Loading";
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
@@ -19,11 +19,10 @@ function a11yProps(index) {
 }
 const Topic = () => {
   const dispatch = useDispatch();
-  const { topicList } = useSelector((state) => state.topicReducer);
+  const { topicList, loading } = useSelector((state) => state.topicReducer);
   const { courseList } = useSelector((state) => state.courseReducer);
   useEffect(() => {
     dispatch(getTopicList());
-    dispatch(getCourseList());
   }, []);
 
   let settings = {
@@ -48,9 +47,9 @@ const Topic = () => {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          // initialSlide: 1,
         },
       },
       {
@@ -69,6 +68,9 @@ const Topic = () => {
     setValue(newValue);
   };
 
+  if(loading){
+    return <Loading/>
+  }
   return (
     <Box sx={{ width: "100%", marginTop: "80px" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>

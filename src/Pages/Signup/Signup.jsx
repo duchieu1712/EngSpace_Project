@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Avatar from "@mui/material/Avatar";
 import PersonAddAlt1OutlinedIcon from "@mui/icons-material/PersonAddAlt1Outlined";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,8 +12,9 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import MyButton from "../../Utils/Button/MyButton";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "../../Redux/Actions/user";
+import { Redirect } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -36,6 +37,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Signup() {
+  const { currentUser, error } = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -51,6 +53,10 @@ export default function Signup() {
       })
     );
   };
+
+  if (currentUser) {
+    return <Redirect to="/" />;
+  }
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -80,7 +86,6 @@ export default function Signup() {
                 <TextField
                   autoComplete="fname"
                   name="firstName"
-                  required
                   fullWidth
                   id="firstName"
                   label="First Name"
@@ -90,7 +95,6 @@ export default function Signup() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  required
                   fullWidth
                   id="lastName"
                   label="Last Name"
@@ -107,6 +111,7 @@ export default function Signup() {
                   name="username"
                   autoComplete="username"
                 />
+                {error ? <p style={{fontSize:"12px", color:"red"}}>* {error.username}</p> : null}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -117,6 +122,7 @@ export default function Signup() {
                   name="email"
                   autoComplete="email"
                 />
+                {error ? <p style={{fontSize:"12px", color:"red"}}>* {error.email}</p> : null}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -128,6 +134,7 @@ export default function Signup() {
                   id="password"
                   autoComplete="new-password"
                 />
+                {error ? <p style={{fontSize:"12px", color:"red"}}>* {error.password}</p> : null}
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel

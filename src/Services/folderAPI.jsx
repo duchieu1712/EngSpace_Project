@@ -2,7 +2,7 @@ import {axiosClient} from "../Utils/axiosClient";
 
 const folderAPI = {
     getFolderByUser: (userID) => {
-        const path = `/folders/${userID}/`;
+        const path = `/folders/user/${userID}/`;
         return axiosClient.get(path);
     },
     postAddFolder: (data) => {

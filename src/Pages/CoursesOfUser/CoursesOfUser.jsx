@@ -1,46 +1,17 @@
 import { Box, Container, Button } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Course from "../../Components/Course/Course";
 import "./CoursesOfUser.scss";
 import { NavLink } from "react-router-dom";
+import { getCourseList } from "../../Redux/Actions/course";
 
 const CoursesOfUser = () => {
-  const courses = [
-    {
-      id: "1",
-      name: "Toán",
-    },
-    {
-      id: "2",
-      name: "Lý",
-    },
-    {
-      id: "2",
-      name: "Lý",
-    },
-    {
-      id: "2",
-      name: "Lý",
-    },
-    {
-      id: "2",
-      name: "Lý",
-    },
-    {
-      id: "2",
-      name: "Lý",
-    },
-    {
-      id: "2",
-      name: "Lý",
-    },
-    {
-      id: "2",
-      name: "Lý",
-    },
-  ];
-
-  
+  const dispatch = useDispatch();
+  const { courseList } = useSelector((state) => state.courseReducer);
+  useEffect(() => {
+    dispatch(getCourseList());
+  }, []);
 
   return (
     <Box className="courseBackground">
@@ -62,7 +33,7 @@ const CoursesOfUser = () => {
       </Box>
       <Container fixed>
         <Box className="courses">
-          {courses.map((item, index) => (
+          {courseList.map((item, index) => (
             <Box className="courseItem">
               <Course course={item} />
             </Box>
