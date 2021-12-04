@@ -16,7 +16,20 @@ const userAPI = {
     getUserDetail: (userID) => {
         const path = `/users/${userID}/`
         return axiosClient.get(path)
-    }
+    },
+    getUserProfile: () => {
+        const path = "/users/profile/"
+        return axiosClient.get(path)
+    },
+    putUserProfile: (data) => {
+        const path = "/users/profile/"
+        return axiosClient.put(path, data)
+    },
+    putChangePassword: (userID, data) => {
+        const path = `/users/profile/change_password/${userID}/`
+        return axiosClient.put(path, data)
+    },
+    
 }
 
 export default userAPI;

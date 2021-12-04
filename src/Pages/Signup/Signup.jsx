@@ -69,6 +69,7 @@ export default function Signup() {
             alignItems: "center",
           }}
         >
+          <h2 style={{fontWeight:700}}>Welcome to EngSpace</h2>
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <PersonAddAlt1OutlinedIcon />
           </Avatar>

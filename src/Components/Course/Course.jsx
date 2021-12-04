@@ -14,7 +14,7 @@ const Course = (props) => {
   const { course } = props;
 
   return (
-    <Box style={{ marginRight: "30px", width:"350px" }}>
+    <Box style={{ marginRight: "30px", width: "320px" }}>
       <NavLink
         to={`/coursedetail/${course.id}`}
         style={{ textDecoration: "none" }}
@@ -39,7 +39,15 @@ const Course = (props) => {
               <Typography variant="subtitle2" style={{ marginBottom: "10px" }}>
                 {course.amount} thuật ngữ
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                style={{
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
                 {course.description}
               </Typography>
               <Typography variant="subtitle2" style={{ marginTop: "20px" }}>

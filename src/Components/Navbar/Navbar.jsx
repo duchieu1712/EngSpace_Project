@@ -1,7 +1,7 @@
 import React from "react";
 import NavSection from "./NavSection";
 
-import { Box, Hidden, Divider, Drawer, Typography } from "@mui/material";
+import { Box, Divider, Drawer, Typography } from "@mui/material";
 
 
 const Navbar = ({ onNavOpen, onNavClose, navConfig }) => {

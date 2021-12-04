@@ -19,10 +19,10 @@ const ImproveScore = () => {
             unde dolorem error.
           </p>
         </div>
-        <img src={flashcard} />
+        <img src={flashcard} alt=""/>
       </div>
       <div className="item">
-        <img src={flashcard} />
+        <img src={flashcard} alt=""/>
         <div className="text">
           <h3>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident,
@@ -47,7 +47,7 @@ const ImproveScore = () => {
             unde dolorem error.
           </p>
         </div>
-        <img src={flashcard} />
+        <img src={flashcard} alt=""/>
       </div>
     </div>
   );

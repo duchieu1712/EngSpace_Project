@@ -1,0 +1,25 @@
+.postTitle{
+    display: flex;
+    align-items: center; 
+}
+.postBody{
+    margin-top: 50px;
+    font-weight: 500;
+}
+.postCount{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.comments{
+    margin-top: 20px;
+    width: 600px;
+    .commentItem{
+        display: flex;
+        margin-top: 20px;
+        width: 100%;
+        h6{
+            font-size: 12px;
+        }
+    }
+}

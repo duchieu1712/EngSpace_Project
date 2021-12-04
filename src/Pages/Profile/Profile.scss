@@ -1,0 +1,47 @@
+.profileBackground {
+    background-color: #f6f7fb;
+    padding: 30px;
+    .profileItem {
+        display: flex;
+        margin-bottom: 50px;
+        .profileTitle {
+            width: 25%;
+            text-align: center;
+            margin-right: 20px;
+            .icon {
+                font-size: 50px;
+                margin-bottom: 10px;
+            }
+            .title {
+                font-size: 35px;
+            }
+        }
+        .profileContent {
+            background-color: #fff;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.08);
+            border-radius: 10px;
+            padding: 40px;
+            width: 100%;
+            margin-right: 20px;
+            .input {
+                width: 50%;
+                .MuiInputBase-formControl {
+                    width: 100%;
+                }
+            }
+            .infoUser{
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+.editInfo{
+    display: flex;
+    flex-direction: column;
+    min-width: 400px;
+    padding: 20px;
+    .inputEdit{
+        margin: 10px;
+    }
+}

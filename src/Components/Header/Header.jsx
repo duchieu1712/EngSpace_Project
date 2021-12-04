@@ -61,6 +61,7 @@ export default function Header({ onHandleNav }) {
   const { courseList } = useSelector((state) => state.courseReducer);
   useEffect(() => {
     dispatch(getCourseList());
+    // eslint-disable-next-line
   }, []);
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -91,55 +92,59 @@ export default function Header({ onHandleNav }) {
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <NavLink to="/profile" style={{ color: "black", textDecoration: "none" }}>
-        <MenuItem onClick={handleMenuClose}>
-          <ListItemIcon>
-            <PermContactCalendarRoundedIcon />
-          </ListItemIcon>
-          Profile
-        </MenuItem>
-      </NavLink>
-
-      <NavLink
-        to="/mycourses"
-        style={{ color: "black", textDecoration: "none" }}
+      <Menu
+        anchorEl={anchorEl}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        id={menuId}
+        keepMounted
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
+        open={isMenuOpen}
+        onClose={handleMenuClose}
+        className="menuToggle"
       >
-        <MenuItem onClick={handleMenuClose}>
-          <ListItemIcon>
-            <CollectionsBookmarkRoundedIcon />
-          </ListItemIcon>
-          Courses
-        </MenuItem>
-      </NavLink>
+        <NavLink
+          to="/profile"
+          style={{ color: "black", textDecoration: "none" }}
+        >
+          <MenuItem onClick={handleMenuClose}>
+            <ListItemIcon>
+              <PermContactCalendarRoundedIcon />
+            </ListItemIcon>
+            Profile
+          </MenuItem>
+        </NavLink>
 
-      <NavLink
-        to="/myfolders"
-        style={{ color: "black", textDecoration: "none" }}
-      >
-        <MenuItem onClick={handleMenuClose}>
-          <ListItemIcon>
-            <FolderOpenRoundedIcon />
-          </ListItemIcon>
-          Folders
-        </MenuItem>
-      </NavLink>
+        <NavLink
+          to="/mycourses"
+          style={{ color: "black", textDecoration: "none" }}
+        >
+          <MenuItem onClick={handleMenuClose}>
+            <ListItemIcon>
+              <CollectionsBookmarkRoundedIcon />
+            </ListItemIcon>
+            Courses
+          </MenuItem>
+        </NavLink>
 
-      <MenuItem onClick={signOut}>
-        <ListItemIcon>
-          <LogoutRoundedIcon />
-        </ListItemIcon>
-        Sign out
-      </MenuItem>
-    </Menu>
+        <NavLink
+          to="/myfolders"
+          style={{ color: "black", textDecoration: "none" }}
+        >
+          <MenuItem onClick={handleMenuClose}>
+            <ListItemIcon>
+              <FolderOpenRoundedIcon />
+            </ListItemIcon>
+            Folders
+          </MenuItem>
+        </NavLink>
+
+        <MenuItem onClick={signOut}>
+          <ListItemIcon>
+            <LogoutRoundedIcon />
+          </ListItemIcon>
+          Sign out
+        </MenuItem>
+      </Menu>
   );
 
   const mobileMenuId = "primary-search-account-menu-mobile";
@@ -240,9 +245,13 @@ export default function Header({ onHandleNav }) {
           >
             <MenuIcon />
           </IconButton>
-          <img src={logo} style={{ width: "35px", marginRight: "10px" }} />
+          <img
+            src={logo}
+            style={{ width: "35px", marginRight: "10px"}}
+            alt=""
+          />
           <Typography
-            style={{ display: { xs: "none", sm: "block" } }}
+            sx={{ display: { xs: 'none', sm: 'block' } }}
             variant="h6"
             noWrap
           >
@@ -290,16 +299,26 @@ export default function Header({ onHandleNav }) {
               <div>
                 <NavLink
                   to="/signin"
-                  style={{ color: "white", textDecoration: "none" }}
+                  style={{
+                    color: "white",
+                    textDecoration: "none",
+                    marginRight: "5px",
+                  }}
                 >
                   <Button color="inherit">Sign in</Button>
                 </NavLink>
 
                 <NavLink
                   to="/signup"
-                  style={{ color: "white", textDecoration: "none" }}
+                  style={{
+                    color: "white",
+                    textDecoration: "none",
+                    borderRadius: "20px",
+                  }}
                 >
-                  <Button color="inherit">Sign up</Button>
+                  <Button variant="contained" color="warning">
+                    Sign up
+                  </Button>
                 </NavLink>
               </div>
             )}

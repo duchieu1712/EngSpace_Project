@@ -4,7 +4,6 @@ import AddIcon from "@mui/icons-material/Add";
 import {
   Box,
   Container,
-  Button,
   IconButton,
   Tooltip,
   Dialog,
@@ -13,21 +12,27 @@ import Course from "../../Components/Course/Course";
 import "./FoldersOfUser.scss";
 import FolderModal from "../../Components/FolderModal/FolderModal";
 import CourseToFolder from "../../Components/CourseToFolder/CourseToFolder";
-import { getFolderByUserID } from "../../Redux/Actions/folder";
+import { getFolderByUserID, deleteFolder } from "../../Redux/Actions/folder";
 import Loading from "../../Components/Loading/Loading";
-export default function FoldersOfUser() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getFolderByUserID(5));
-  }, []);
-  const { folderByUser, loading } = useSelector((state) => state.folderReducer);
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import MyButton from "../../Utils/Button/MyButton";
 
+export default function FoldersOfUser() {
+  const { folderByUser, loading } = useSelector((state) => state.folderReducer);
+  const {currentUser} = useSelector(state => state.userReducer)
   const [openModal, setOpenModal] = useState(false);
   const [openAddCourse, setOpenAddFolder] = useState(false);
   const [folderSelect, setFolderSelect] = useState({});
   const [coursesOfFolder, setCoursesOfFolder] = useState([])
   const [isUpdate, setIsUpdate] = useState(false);
   
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getFolderByUserID(currentUser.id));
+    // eslint-disable-next-line
+  }, []);
+
   const createFolder = () => {
     setOpenModal(!openModal);
   };
@@ -40,6 +45,10 @@ export default function FoldersOfUser() {
     setIsUpdate(!isUpdate);
     setFolderSelect(folder);
   };
+  const handleDeleteFolder = (folderID) => {
+    dispatch(deleteFolder(folderID))
+    window.location.reload()
+  }
   const closeModal = () => {
     setOpenModal(!openModal);
     setFolderSelect({});
@@ -59,11 +68,11 @@ export default function FoldersOfUser() {
           fixed
           style={{ display: "flex", justifyContent: "space-between" }}
         >
-          <h3>Danh sách thư mục của bạn</h3>
+          <h4>Danh sách thư mục của bạn</h4>
           <Box>
-            <Button variant="contained" onClick={createFolder}>
+            <MyButton variant="contained" onClick={createFolder}>
               Tạo thư mục mới
-            </Button>
+            </MyButton>
           </Box>
         </Container>
       </Box>
@@ -72,7 +81,7 @@ export default function FoldersOfUser() {
           <Box className="folderItem">
             <Box className="folderTitle">
               <Box>
-                <h4>{item.name}</h4>
+                <h5 style={{fontWeight:600}}>{item.name}</h5>
                 <h6>{item.sets.length} học phần</h6>
                 <p>{item.description}</p>
               </Box>
@@ -84,12 +93,12 @@ export default function FoldersOfUser() {
                 </Tooltip>
                 <Tooltip title="Sửa thư mục">
                   <IconButton onClick={() => updateFolder(item)}>
-                    <AddIcon />
+                    <EditRoundedIcon />
                   </IconButton>
                 </Tooltip>
                 <Tooltip title="Xóa thư mục">
-                  <IconButton>
-                    <AddIcon />
+                  <IconButton onClick={() => handleDeleteFolder(item.id)}>
+                    <DeleteRoundedIcon />
                   </IconButton>
                 </Tooltip>
               </Box>
@@ -108,10 +117,11 @@ export default function FoldersOfUser() {
           onClose={closeModal}
           folderSelected={folderSelect}
           isUpdate={isUpdate}
+          user = {currentUser.username}
         />
       </Dialog>
       <Dialog open={openAddCourse}>
-        <CourseToFolder onClose={closeModalCourse} courseList={coursesOfFolder}/>
+        <CourseToFolder user={currentUser.id} onClose={closeModalCourse} courseList={coursesOfFolder}/>
       </Dialog>
     </Box>
   );

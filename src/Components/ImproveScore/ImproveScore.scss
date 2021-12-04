@@ -23,14 +23,30 @@
         img{
             width: 45%;
         }
-        // @media screen and (max-width: 768px) {
-        //     display: block;
-        //     .text{
-        //         width: 100%;
-        //     }
-        //     img{
-        //         width: 100%;
-        //     }
-        // }
+
+    }
+}
+@media screen and (max-width: 768px) {
+    .improve{
+        h2{
+            font-size: 29px;
+            em{
+                padding: 10px;
+                background: none;
+                font-size: 35px;
+            }
+        }
+        .item{
+            margin-bottom: 50px;
+            .text{
+                h3{
+                    font-size: 18px;
+                }
+                p{
+                    font-size: 14px;
+                }
+            }
+        }
+        
     }
 }

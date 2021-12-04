@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
@@ -9,7 +9,6 @@ import Slider from "react-slick";
 import KeyboardArrowLeftRoundedIcon from "@mui/icons-material/KeyboardArrowLeftRounded";
 import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
 import "./Topic.scss";
-import { getTopicList } from "../../Redux/Actions/topic";
 import Loading from "../../Components/Loading/Loading";
 function a11yProps(index) {
   return {
@@ -18,19 +17,16 @@ function a11yProps(index) {
   };
 }
 const Topic = () => {
-  const dispatch = useDispatch();
   const { topicList, loading } = useSelector((state) => state.topicReducer);
   const { courseList } = useSelector((state) => state.courseReducer);
-  useEffect(() => {
-    dispatch(getTopicList());
-  }, []);
+
 
   let settings = {
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 3,
     rows: 1,
-    slidesToScroll: 4,
+    slidesToScroll: 3,
     initialSlide: 0,
     swipe: false,
     nextArrow: <KeyboardArrowRightRoundedIcon />,
@@ -72,8 +68,9 @@ const Topic = () => {
     return <Loading/>
   }
   return (
-    <Box sx={{ width: "100%", marginTop: "80px" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+    <Box className="topicsContent container">
+      <h4>Danh sách các chủ đề</h4>
+      <Box className="listTopic">
         <Tabs
           value={value}
           onChange={handleChange}
@@ -88,12 +85,10 @@ const Topic = () => {
       {topicList.map((topic, index) => (
         <TabPanel value={value} index={index}>
           <Slider {...settings}>
-            {courseList.map((course) => {
+            {courseList.map((course,idx) => {
               if (course.topic === topic.id) {
-                console.log("abbc");
                 return <Course course={course} />;
               }
-              // course.topic === topic.id && <Course course={course} />
             })}
           </Slider>
         </TabPanel>

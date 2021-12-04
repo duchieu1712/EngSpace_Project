@@ -17,14 +17,18 @@ const courseAPI = {
         const path = "/sets/";
         return axiosClient.post(path, data);
     },
-    putUpdateCourse: (courseID,data) => {
+    patchUpdateCourse: (courseID,data) => {
         const path = `/sets/${courseID}/`;
-        return axiosClient.put(path, data);
+        return axiosClient.patch(path, data);
     },
     deleteCourse: (courseID) => {
         const path = `/sets/${courseID}/`;
         return axiosClient.delete(path);
     },
+    deleteTerm: (termID) => {
+        const path = `/set-details/${termID}/`;
+        return axiosClient.delete(path);
+    }
 }
 
 export default courseAPI;

@@ -40,7 +40,7 @@ export const addFolder = (data) => {
   };
 };
 
-export const updateCourse = (folderID,data) => {
+export const updateFolder = (folderID,data) => {
   return (dispatch) => {
     dispatch({ type: "UPDATE_FOLDER_REQUEST" });
     folderAPI
@@ -60,7 +60,7 @@ export const updateCourse = (folderID,data) => {
   };
 };
 
-export const deleteCourse = (folderID) => {
+export const deleteFolder = (folderID) => {
   return (dispatch) => {
     dispatch({ type: "DELETE_FOLDER_REQUEST" });
     folderAPI
@@ -74,6 +74,46 @@ export const deleteCourse = (folderID) => {
       .catch((error) => {
         dispatch({
           type: "DELETE_FOLDER_FAIL",
+          payload: { error: error.response.data },
+        });
+      });
+  };
+};
+
+export const addCourseToFolder = (values) => {
+  return (dispatch) => {
+    dispatch({ type: "ADD_COURSE_FOLDER_REQUEST" });
+    folderAPI
+      .postCourseToFolder(values)
+      .then((result) => {
+        dispatch({
+          type: "ADD_COURSE_FOLDER_SUCCESS",
+          payload: { data: result.data },
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "ADD_COURSE_FOLDER_FAIL",
+          payload: { error: error.response.data },
+        });
+      });
+  };
+};
+
+export const deleteCourseFolder = (values) => {
+  return (dispatch) => {
+    dispatch({ type: "DELETE_COURSE_FOLDER_REQUEST" });
+    folderAPI
+      .deleteCourseToFolder(values)
+      .then((result) => {
+        dispatch({
+          type: "DELETE_COURSE_FOLDER_SUCCESS",
+          payload: { data: result.data },
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "DELETE_COURSE_FOLDER_FAIL",
           payload: { error: error.response.data },
         });
       });

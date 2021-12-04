@@ -46,6 +46,7 @@ export default function Learn({terms}) {
 
   useEffect(() => {
     createQuizsAndOptions();
+    // eslint-disable-next-line
   }, [currentQuiz]);
   const handleClose = () => {
     setOpenDialog(false);
@@ -69,12 +70,16 @@ export default function Learn({terms}) {
     }
     setOpen(false);
   };
+  const handleComplete = () => {
+    setOpenDialog(true)
+    setOpen(false)
+  }
 
   return (
     <Box className="contentLearn">
       <Box className="define">
         <h6>Định nghĩa</h6>
-        <p>{quizList[currentQuiz]?.definition}</p>
+        <p style={{fontSize:"18px",fontWeight:500}}>{quizList[currentQuiz]?.definition}</p>
       </Box>
       <Box className="options">
         <h6>Chọn thuật ngữ đúng</h6>
@@ -95,17 +100,17 @@ export default function Learn({terms}) {
       <Collapse in={open}>
         {checkAnswer ? (
           <Alert severity="success">
-            Bạn đang làm tốt lắm !!!
+            Bạn đang làm rất tốt !!!
             <Button onClick={handleNext} style={{ marginLeft: "40px" }}>
               Câu tiếp theo
             </Button>
-            <Button onClick={() => setOpenDialog(true)}>Hoàn thành</Button>
+            <Button onClick={() => handleComplete()}>Hoàn thành</Button>
           </Alert>
         ) : (
           <Alert severity="error">
             Bạn cần cố gắng nhiều hơn !!!
             <Button onClick={handleNext}>Câu tiếp theo</Button>
-            <Button onClick={() => setOpenDialog(true)}>Hoàn thành</Button>
+            <Button onClick={() => handleComplete()}>Hoàn thành</Button>
           </Alert>
         )}
       </Collapse>

@@ -69,7 +69,8 @@ export default function Signin() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <h2 style={{fontWeight:700}}>Welcome to EngSpace</h2>
+          <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
             <PersonOutlineOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">

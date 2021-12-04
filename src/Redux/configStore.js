@@ -9,6 +9,7 @@ import userReducer from './Reducers/userReducer';
 import topicReducer from './Reducers/topicReducer';
 import courseReducer from './Reducers/courseReducer';
 import folderReducer from './Reducers/folderReducer';
+import forumReducer from './Reducers/forumReducer';
 
 const enhanceCompose = compose(
     applyMiddleware(thunk),
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
     userReducer,
     topicReducer,
     courseReducer,
-    folderReducer
+    folderReducer,
+    forumReducer
 })
 
 const store = createStore(

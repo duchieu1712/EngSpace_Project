@@ -9,8 +9,8 @@ import {
   Button,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,38 +19,44 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import "./CreateCourse.scss";
-import { addCourse } from "../../Redux/Actions/course";
+import { deleteTerm, updateCourse } from "../../Redux/Actions/course";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
-export default function CreateCourse() {
-  const [set_details, setSet_details] = useState([{ term: "", definition: "", term_lang: "en", definition_lang: "en" }]);
+export default function EditCourse(props) {
   const { topicList } = useSelector((state) => state.topicReducer);
+  const { course } = useSelector((state) => state.courseReducer);
   const { currentUser } = useSelector((state) => state.userReducer);
   const [open, setOpen] = useState(false);
-  const dispatch = useDispatch();
+  const [openDel, setOpenDel] = useState(false);
 
+
+  const [set_details, setSet_details] = useState(course.set_details);
+  const dispatch = useDispatch();
+  
   const handleClose = () => {
     setOpen(false);
-    window.history.back()
+    window.history.back();
   };
-  const [course, setCourse] = useState({
+  const handleCloseTerm = () => {
+    setOpenDel(false)
+  }
+  const [courseUpdate, setCourseUpdate] = useState({
     is_public: true,
-    name: "",
-    description: "",
+    name: course.name,
+    description: course.description,
     // image: "",
     user: {
       username: currentUser.username,
     },
-    topic: null,
+    topic: course.topic,
     set_details: [],
   });
 
   useEffect(() => {
-    setCourse((obj) => ({ ...obj, set_details: set_details }));
+    setCourseUpdate((obj) => ({ ...obj, set_details: set_details }));
   }, [set_details]);
 
   const handleChangeCourse = (type) => (e) => {
@@ -60,7 +66,7 @@ export default function CreateCourse() {
     //     image: e.target.file[0],
     //   }));
     // } else {
-      setCourse((obj) => ({ ...obj, [type]: e.target.value }));
+    setCourseUpdate((obj) => ({ ...obj, [type]: e.target.value }));
     // }
   };
   const handleChangeTerm = (e, index) => {
@@ -69,7 +75,9 @@ export default function CreateCourse() {
     list[index][name] = value;
     setSet_details(list);
   };
-  const handleDeleteTerm = (index) => {
+  const handleDeleteTerm = (id,index) => {
+    dispatch(deleteTerm(id))
+    setOpenDel(true)
     const list = [...set_details];
     list.splice(index, 1);
     setSet_details(list);
@@ -81,19 +89,22 @@ export default function CreateCourse() {
     ]);
   };
   const handleSubmit = () => {
-    dispatch(addCourse(course))
+    dispatch(updateCourse(course.id,courseUpdate));
     setOpen(true);
+    // console.log(course.id,courseUpdate);
   };
+  
   return (
     <Box>
       <Container>
         <Box>
-          <h4>Tạo học phần mới</h4>
+          <h4>Cập nhật học phần</h4>
           <TextField
             label="Tên học phần"
             variant="outlined"
             className="input"
             onChange={handleChangeCourse("name")}
+            value={courseUpdate.name}
             fullWidth
           />
           <TextField
@@ -101,6 +112,7 @@ export default function CreateCourse() {
             variant="outlined"
             className="input"
             onChange={handleChangeCourse("description")}
+            value={courseUpdate.description}
             fullWidth
           />
           <FormControl fullWidth style={{ width: "50%" }}>
@@ -110,6 +122,7 @@ export default function CreateCourse() {
               id="demo-simple-select"
               label="Chủ đề"
               onChange={handleChangeCourse("topic")}
+              value={courseUpdate.topic}
             >
               {topicList.map((item, index) => (
                 <MenuItem value={item.id}>{item.name}</MenuItem>
@@ -125,7 +138,7 @@ export default function CreateCourse() {
               ),
             }}
             variant="outlined"
-            onChange={handleChangeCourse("image")}
+            // onChange={handleChangeCourse("image")}
             fullWidth
           />
         </Box>
@@ -133,11 +146,11 @@ export default function CreateCourse() {
       <Box className="terms">
         <Container>
           <h4>Thuật ngữ trong học phần</h4>
-          {set_details.map((item, index) => (
+          {set_details?.map((item, index) => (
             <Paper className="termItem">
               <Box className="headItem">
                 <h6>{index + 1}</h6>
-                <IconButton onClick={() => handleDeleteTerm(index)}>
+                <IconButton onClick={() => handleDeleteTerm(item.id, index)}>
                   <DeleteIcon />
                 </IconButton>
               </Box>
@@ -167,14 +180,19 @@ export default function CreateCourse() {
           </Paper>
           <Box className="btnSubmit">
             <MyButton style={{ width: 200, margin: 0 }} onClick={handleSubmit}>
-              Tạo
+              Lưu
             </MyButton>
           </Box>
         </Container>
       </Box>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-          Thêm học phần thành công!!!
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          Sửa học phần thành công!!!
+        </Alert>
+      </Snackbar>
+      <Snackbar open={openDel} autoHideDuration={6000} onClose={handleCloseTerm}>
+        <Alert onClose={handleCloseTerm} severity="error" sx={{ width: "100%" }}>
+          Xóa thuật ngữ thành công!!!
         </Alert>
       </Snackbar>
     </Box>

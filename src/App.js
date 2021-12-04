@@ -14,13 +14,16 @@ import Profile from './Pages/Profile/Profile';
 import CourseDetail from './Pages/CourseDetail/CourseDetail';
 import CreateCourse from './Pages/CreateCourse/CreateCourse';
 import FoldersOfUser from './Pages/FoldersOfUser/FoldersOfUser';
+import EditCourse from './Pages/EditCourse/EditCourse';
+import Forum from './Pages/Forum/Forum';
+import PostDetail from './Pages/PostDetail/PostDetail';
 
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path={['/', '/topic', '/about', '/faq', '/mycourses','/myfolders', '/profile', '/coursedetail/:courseID', '/createcourse']}>
+        <Route exact path={['/', '/topic', '/about', '/faq', '/mycourses','/myfolders', '/profile', '/coursedetail/:courseID', '/createcourse','/editcourse/:courseID', '/forum','/postdetail/:postID']}>
           <HomeLayout>
             <Switch>
               <Route exact path='/' component={Home} />
@@ -32,6 +35,9 @@ function App() {
               <Route exact path='/coursedetail/:courseID' component={CourseDetail} />
               <Route exact path='/profile' component={Profile} />
               <Route exact path='/createcourse' component={CreateCourse} />
+              <Route exact path='/editcourse/:courseID' component={EditCourse} />
+              <Route exact path='/forum' component={Forum} />
+              <Route exact path='/postdetail/:postID' component={PostDetail} />
             </Switch>
           </HomeLayout>
         </Route>

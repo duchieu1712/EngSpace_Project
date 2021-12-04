@@ -1,16 +1,18 @@
-import { Box, Container, Button } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Course from "../../Components/Course/Course";
 import "./CoursesOfUser.scss";
 import { NavLink } from "react-router-dom";
 import { getCourseList } from "../../Redux/Actions/course";
+import MyButton from "../../Utils/Button/MyButton";
 
 const CoursesOfUser = () => {
   const dispatch = useDispatch();
   const { courseList } = useSelector((state) => state.courseReducer);
   useEffect(() => {
     dispatch(getCourseList());
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -20,13 +22,13 @@ const CoursesOfUser = () => {
           fixed
           style={{ display: "flex", justifyContent: "space-between" }}
         >
-          <h3>Danh sách học phần của bạn</h3>
+          <h4>Danh sách học phần của bạn</h4>
           <Box>
             <NavLink
               to="/createcourse"
               style={{ color: "black", textDecoration: "none" }}
             >
-              <Button variant="contained">Tạo học phần mới</Button>
+              <MyButton variant="contained">Tạo học phần mới</MyButton>
             </NavLink>
           </Box>
         </Container>

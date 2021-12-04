@@ -6,18 +6,34 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        p{
+        padding: 40px;
+        p {
+            font-size: 25px;
             margin-bottom: 0;
         }
     }
 }
 
-.position{
+.position {
     position: relative;
-    h5{
+    h5 {
         position: absolute;
         left: 50%;
         bottom: 2%;
         transform: translateX(-50%);
+    }
+}
+
+.css-1m3p9o7{
+    .slick-arrow{
+        font-size: 40px;
+        transition: all 0.3s;
+        &:hover,&:focus{
+            color: #1976d2;
+            font-size: 50px;
+        }
+    }
+    .slick-next{
+        right: -40px;
     }
 }

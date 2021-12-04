@@ -5,13 +5,17 @@
         max-width: 500px;
         .define{
             display: block;
-            margin-bottom: 100px;
+            margin-bottom: 50px;
+            h6{
+                font-size: 25px;
+            }
         }
         .options{
             display: flex;
             flex-wrap: wrap;
             h6{
                 display: block;
+                font-size: 25px;
                 width: 100%;
             }
             .optionItem{

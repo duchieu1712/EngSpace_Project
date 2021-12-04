@@ -13,7 +13,7 @@ const FlashCard = ({ terms }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     swipe: false,
-    nextArrow: <KeyboardArrowRightRoundedIcon />,
+    nextArrow: <KeyboardArrowRightRoundedIcon/>,
     prevArrow: <KeyboardArrowLeftRoundedIcon />,
   };
   const [flipped, setFlipped] = useState(false);

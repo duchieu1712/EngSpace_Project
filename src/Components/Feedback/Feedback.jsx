@@ -2,6 +2,8 @@ import React from "react";
 import Slider from "react-slick";
 import "./Feedback.scss";
 import MyButton from "../../Utils/Button/MyButton";
+import KeyboardArrowLeftRoundedIcon from "@mui/icons-material/KeyboardArrowLeftRounded";
+import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
 import { NavLink } from "react-router-dom";
 const Feedback = () => {
   const settings = {
@@ -9,6 +11,8 @@ const Feedback = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    nextArrow: <KeyboardArrowRightRoundedIcon/>,
+    prevArrow: <KeyboardArrowLeftRoundedIcon />,
   };
   const feedback = [
     "Lorem ipsum dolor sit amet.",
@@ -29,8 +33,8 @@ const Feedback = () => {
       </Slider>
       <div className="ready">
         <p>Bạn đã sẵn sàng cải thiện điểm số ?</p>
-        <NavLink to='/signup' style={{ textDecoration: "none" }}>
-          <MyButton>Bắt đầu học</MyButton>
+        <NavLink to='/signin' style={{ textDecoration: "none" }}>
+          <MyButton color="blue">Bắt đầu học</MyButton>
         </NavLink> 
       </div>
     </div>

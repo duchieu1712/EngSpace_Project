@@ -84,7 +84,7 @@ export const updateCourse = (courseID,data) => {
   return (dispatch) => {
     dispatch({ type: "UPDATE_COURSE_REQUEST" });
     courseAPI
-      .putUpdateCourse(courseID,data)
+      .patchUpdateCourse(courseID,data)
       .then((result) => {
         dispatch({
           type: "UPDATE_COURSE_SUCCESS",
@@ -114,6 +114,26 @@ export const deleteCourse = (courseID) => {
       .catch((error) => {
         dispatch({
           type: "DELETE_COURSE_FAIL",
+          payload: { error: error.response.data },
+        });
+      });
+  };
+};
+
+export const deleteTerm = (termID) => {
+  return (dispatch) => {
+    dispatch({ type: "DELETE_TERM_REQUEST" });
+    courseAPI
+      .deleteTerm(termID)
+      .then((result) => {
+        dispatch({
+          type: "DELETE_TERM_SUCCESS",
+          payload: { data: result.data },
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "DELETE_TERM_FAIL",
           payload: { error: error.response.data },
         });
       });

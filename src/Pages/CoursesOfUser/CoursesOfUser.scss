@@ -1,8 +1,12 @@
 .courseBackground {
-    background-color: grey;
+    background-color: #f6f7fb;
     .head {
         padding: 30px 0;
         background-color: #fff;
+        h4 {
+            font-weight: 700;
+            font-size: 40px;
+        }
     }
     .courses {
         display: flex;

@@ -1,29 +1,38 @@
 import axios from "axios";
 import TokenService from "../Services/services.token";
-import { useHistory } from "react-router";
+
 
 export const axiosClient = axios.create({
   baseURL: "https://engspace-be-ff5wy.ondigitalocean.app/api",
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
-axiosClient.interceptors.request.use((config) => {
-  const token = TokenService.getLocalAccessToken();
-  if (token) {
-    config.headers.common.Authorization = "Bearer " + token;
+axiosClient.interceptors.request.use(
+  (config) => {
+    const token = TokenService.getLocalAccessToken();
+    if (token) {
+      config.headers["Authorization"] = "Bearer " + token;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
   }
-  return config;
-});
-
+);
 
 axiosClient.interceptors.response.use(
   (res) => {
     return res;
   },
   async (err) => {
-    const history = useHistory();
     const originalConfig = err.config;
-
-    if (originalConfig.url !== "/users/login/" && err.response) {
+    if (
+      originalConfig.url !== "/users/login/" &&
+      err.response &&
+      err.response.data.messages
+    ) {
       // Access Token was expired
       if (err.response.status === 401 && !originalConfig._retry) {
         originalConfig._retry = true;
@@ -43,9 +52,13 @@ axiosClient.interceptors.response.use(
       }
     }
 
-    if(originalConfig.url === "/users/login/refresh/" && err.response && err.response.data.code){
+    if (
+      originalConfig.url === "/users/login/refresh/" &&
+      err.response &&
+      err.response.data.code
+    ) {
       TokenService.removeUser();
-      history.push("/signin")
+      window.location.reload();
     }
 
     return Promise.reject(err);

@@ -84,3 +84,66 @@ export const getUser = (userID) => {
       });
   };
 };
+
+export const getProfileUser = () => {
+  return (dispatch) => {
+    dispatch({ type: "GET_USERPROFILE_REQUEST" });
+    userAPI
+      .getUserProfile()
+      .then((result) => {
+        dispatch({
+          type: "GET_USERPROFILE_SUCCESS",
+          payload: { data: result.data },
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "GET_USERPROFILE_FAIL",
+          payload: { error: error.response.data },
+        });
+      });
+  };
+};
+
+export const updateProfileUser = (values) => {
+  return (dispatch) => {
+    dispatch({ type: "PUT_USERPROFILE_REQUEST" });
+    userAPI
+      .putUserProfile(values)
+      .then((result) => {
+        dispatch({
+          type: "PUT_USERPROFILE_SUCCESS",
+          payload: { data: result.data },
+        });
+        alert("Chỉnh sửa hồ sơ thành công !!!")
+      })
+      .catch((error) => {
+        dispatch({
+          type: "PUT_USERPROFILE_FAIL",
+          payload: { error: error.response.data },
+        });
+      });
+  };
+};
+
+export const changePassword = (userID, values) => {
+  return (dispatch) => {
+    dispatch({ type: "CHANGE_PASSWORD_REQUEST" });
+    userAPI
+      .putChangePassword(userID, values)
+      .then((result) => {
+        dispatch({
+          type: "CHANGE_PASSWORD_SUCCESS",
+          payload: { data: result.data },
+        });
+        alert("Đổi mật khẩu thành công !!!")
+      })
+      .catch((error) => {
+        dispatch({
+          type: "CHANGE_PASSWORD_FAIL",
+          payload: { error: error.response.data },
+        });
+        alert("Đổi mật khẩu không thành công !!!")
+      });
+  };
+};

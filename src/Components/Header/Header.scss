@@ -15,8 +15,16 @@
     padding: 0 !important;
 }
 
-.MuiBox-root{
-    .MuiAppBar-root{
+.MuiBox-root {
+    .MuiAppBar-root {
         border-radius: 0 0 20px 20px;
+    }
+}
+
+.menuToggle {
+    .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper {
+        left: 1360px !important;
+        width: 160px;
+        top: 65px !important;
     }
 }

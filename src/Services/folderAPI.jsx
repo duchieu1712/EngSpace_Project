@@ -17,6 +17,14 @@ const folderAPI = {
         const path = `/folders/${folderID}/`;
         return axiosClient.delete(path);
     },
+    postCourseToFolder: (data) => {
+        const path = "/folder-sets/";
+        return axiosClient.post(path, data);
+    },
+    deleteCourseToFolder: (data) => {
+        const path = "/folder-sets/";
+        return axiosClient.delete(path,{data:data});
+    }
 }
 
 export default folderAPI;

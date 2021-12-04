@@ -6,6 +6,7 @@ const initialState = {
   currentUser: currentUser,
   userList: [],
   user:{},
+  userProfile:{},
   loading: false,
   error: null,
 };
@@ -46,6 +47,15 @@ const userReducer = (state = initialState, action) => {
       return { ...state, user: action.payload.data, loading: false };
     }
     case "GET_USER_FAIL": {
+      return { ...state, error: action.payload.error, loading: false };
+    }
+    case "GET_USERPROFILE_REQUEST": {
+      return { ...state, loading: true, error: null };
+    }
+    case "GET_USERPROFILE_SUCCESS": {
+      return { ...state, userProfile: action.payload.data, loading: false };
+    }
+    case "GET_USERPROFILE_FAIL": {
       return { ...state, error: action.payload.error, loading: false };
     }
     default:
