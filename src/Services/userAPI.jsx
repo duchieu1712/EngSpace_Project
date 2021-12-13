@@ -29,7 +29,10 @@ const userAPI = {
         const path = `/users/profile/change_password/${userID}/`
         return axiosClient.put(path, data)
     },
-    
+    patchUserAvatar: (data) => {
+        const path = "/users/profile/"
+        return axiosClient.patch(path, data)
+    }
 }
 
 export default userAPI;

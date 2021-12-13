@@ -11,8 +11,7 @@ const Feedback = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    nextArrow: <KeyboardArrowRightRoundedIcon/>,
-    prevArrow: <KeyboardArrowLeftRoundedIcon />,
+    arrows: false
   };
   const feedback = [
     "Lorem ipsum dolor sit amet.",

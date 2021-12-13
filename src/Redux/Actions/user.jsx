@@ -147,3 +147,28 @@ export const changePassword = (userID, values) => {
       });
   };
 };
+
+export const changeUserAvatar = (values) => {
+  const formData = new FormData();
+  for(const key in values){
+    formData.append(key, values[key])
+  }
+  return (dispatch) => {
+    dispatch({ type: "PATCH_AVATAR_REQUEST" });
+    userAPI
+      .patchUserAvatar(formData)
+      .then((result) => {
+        dispatch({
+          type: "PATCH_AVATAR_SUCCESS",
+          payload: { data: result.data },
+        });
+        alert("Chỉnh sửa ảnh đại diện thành công !!!")
+      })
+      .catch((error) => {
+        dispatch({
+          type: "PATCH_AVATAR_FAIL",
+          payload: { error: error.response.data },
+        });
+      });
+  };
+};

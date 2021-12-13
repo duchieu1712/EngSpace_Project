@@ -6,7 +6,7 @@ const forumAPI = {
         return axiosClient.get(path)
     },
     getPost: (postID) => {
-        const path = `/forum/posts/${postID}`;
+        const path = `/forum/posts/${postID}/`;
         return axiosClient.get(path)
     },
     postForumPost: (data) => {
@@ -14,11 +14,11 @@ const forumAPI = {
         return axiosClient.post(path, data)
     },
     putEditPost: (postID, data) => {
-        const path = `/forum/posts/${postID}`;
+        const path = `/forum/posts/${postID}/`;
         return axiosClient.put(path, data)
     },
     deletePost: (postID) => {
-        const path = `/forum/posts/${postID}`;
+        const path = `/forum/posts/${postID}/`;
         return axiosClient.delete(path)
     },
 
@@ -39,7 +39,6 @@ const forumAPI = {
         const path = "/forum/post-likes/";
         return axiosClient.post(path, data)
     },
-    
 }
 
 export default forumAPI;

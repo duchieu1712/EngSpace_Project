@@ -61,10 +61,14 @@ export const getCoursesByUserID = (userID) => {
 };
 
 export const addCourse = (data) => {
+  const formData = new FormData();
+  for (const key in data) {
+    formData.append(key, data[key]);
+  }
   return (dispatch) => {
     dispatch({ type: "ADD_COURSE_REQUEST" });
     courseAPI
-      .postAddCourse(data)
+      .postAddCourse(formData)
       .then((result) => {
         dispatch({
           type: "ADD_COURSE_SUCCESS",

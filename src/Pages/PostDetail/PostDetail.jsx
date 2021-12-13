@@ -8,15 +8,28 @@ import TextareaAutosize from "@mui/material/TextareaAutosize";
 import ThumbUpRoundedIcon from "@mui/icons-material/ThumbUpRounded";
 import ThumbDownRoundedIcon from "@mui/icons-material/ThumbDownRounded";
 import LoadingButton from "@mui/lab/LoadingButton";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import CloseIcon from "@mui/icons-material/Close";
+import Dialog from "@mui/material/Dialog";
 import Button from "@mui/material/Button";
 import {
+  deletePost,
   getCommentsPost,
   getPostDetail,
   postComment,
   postLike,
 } from "../../Redux/Actions/forum";
 import MyButton from "../../Utils/Button/MyButton";
+import NewPost from "../../Components/NewPost/NewPost";
+import Slide from "@mui/material/Slide";
 import "./PostDetail.scss";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export default function PostDetail(props) {
   // console.log(props.match.params.postID);
@@ -29,6 +42,16 @@ export default function PostDetail(props) {
   const [loadingDislike, setLoadingDislike] = useState(false);
   const [reply, setReply] = useState({ index: 0, isReply: false });
   const [input, setInput] = useState("");
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   useEffect(() => {
     dispatch(getPostDetail(props.match.params.postID));
     dispatch(getCommentsPost(props.match.params.postID));
@@ -101,6 +124,9 @@ export default function PostDetail(props) {
   const handleReply = (index) => {
     setReply({ index: index, isReply: !reply.isReply });
   };
+  const handleDelete = () => {
+    dispatch(deletePost(postDetail.id))
+  }
   const commentInput = (parentID) => {
     return (
       <Box style={{ marginBottom: "20px", textAlign: "end", width: 600 }}>
@@ -114,7 +140,7 @@ export default function PostDetail(props) {
           />
         </Box>
         <MyButton
-          style={{ marginTop: "10px" }}
+          style={{ marginRight: 0 }}
           onClick={() => submitComment(parentID)}
         >
           Gửi
@@ -142,6 +168,14 @@ export default function PostDetail(props) {
               {postDetail.user?.username}
             </p>
           </Box>
+          {currentUser.id === postDetail.user?.id ? (
+            <Box style={{ position: "absolute", right: 0 }}>
+              <MyButton onClick={handleOpen}>Sửa bài viết</MyButton>
+              <MyButton color="red" onClick={handleDelete}>
+                Xóa bài viết
+              </MyButton>
+            </Box>
+          ) : null}
         </Box>
         <Box className="postBody">{postDetail.body}</Box>
         <Box className="postCount">
@@ -203,7 +237,7 @@ export default function PostDetail(props) {
                   </Box>
                 </Box>
                 {item.childrens?.map((child, idx) => (
-                  <Box className="commentItem" style={{marginLeft:"80px"}}>
+                  <Box className="commentItem" style={{ marginLeft: "80px" }}>
                     <Avatar sx={{ width: 48, height: 48, marginRight: "20px" }}>
                       U
                     </Avatar>
@@ -216,10 +250,6 @@ export default function PostDetail(props) {
                         {child.date_created?.slice(5, 7)} năm{" "}
                         {child.date_created?.slice(0, 4)}
                       </h6>
-                      {/* <Button onClick={() => handleReply(idx)}>Trả lời</Button>
-                      {reply.idx === idx && reply.isReply
-                        ? commentInput(child.id)
-                        : null} */}
                     </Box>
                   </Box>
                 ))}
@@ -228,6 +258,29 @@ export default function PostDetail(props) {
           </Box>
         </Box>
       </Container>
+      <Dialog
+        fullScreen
+        open={open}
+        onClose={handleClose}
+        TransitionComponent={Transition}
+      >
+        <AppBar sx={{ position: "relative" }}>
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={handleClose}
+              aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>
+            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+              Bài đăng mới
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <NewPost post={postDetail} isUpdate={true} />
+      </Dialog>
     </Box>
   );
 }

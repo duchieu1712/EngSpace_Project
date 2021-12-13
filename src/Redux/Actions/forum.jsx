@@ -90,6 +90,7 @@ export const deletePost = (postID) => {
           type: "DELETE_POST_SUCCESS",
           payload: { data: result.data },
         });
+        alert("Xóa thành công !!!")
       })
       .catch((error) => {
         dispatch({

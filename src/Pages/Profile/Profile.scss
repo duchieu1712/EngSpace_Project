@@ -23,6 +23,9 @@
             padding: 40px;
             width: 100%;
             margin-right: 20px;
+            h5{
+                font-weight: 500;
+            }
             .input {
                 width: 50%;
                 .MuiInputBase-formControl {
@@ -31,6 +34,12 @@
             }
             .infoUser{
                 font-weight: 500;
+            }
+            .avatars{
+                cursor: pointer;
+                border: 2px solid rgb(184, 184, 184);
+                width: 50px;
+                height: 50px;
             }
         }
     }

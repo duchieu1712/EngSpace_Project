@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useSelector } from "react-redux";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -29,8 +29,8 @@ const Topic = () => {
     slidesToScroll: 3,
     initialSlide: 0,
     swipe: false,
-    nextArrow: <KeyboardArrowRightRoundedIcon />,
-    prevArrow: <KeyboardArrowLeftRoundedIcon />,
+    nextArrow: <KeyboardArrowRightRoundedIcon style={{fontSize: "42px"}}/>,
+    prevArrow: <KeyboardArrowLeftRoundedIcon style={{fontSize: "42px"}}/>,
     responsive: [
       {
         breakpoint: 1024,
@@ -58,7 +58,7 @@ const Topic = () => {
     ],
   };
 
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -75,7 +75,7 @@ const Topic = () => {
           value={value}
           onChange={handleChange}
           variant="scrollable"
-          scrollButtons="auto"
+          allowScrollButtonsMobile
         >
           {topicList.map((topic, index) => (
             <Tab label={topic.name} {...a11yProps(index)} />

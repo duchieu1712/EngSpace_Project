@@ -270,12 +270,13 @@ export default function Header({ onHandleNav }) {
               freeSolo
               getOptionLabel={(option) => option.name}
               options={courseList}
-              sx={{ width: 300 }}
+              sx={{ width: 220 }}
               renderInput={(params) => (
                 <TextField
                   {...params}
                   variant="outlined"
                   style={{ border: "none", paddingLeft: 50 }}
+                  size="small"
                 />
               )}
             />
@@ -330,6 +331,7 @@ export default function Header({ onHandleNav }) {
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
               color="inherit"
+              style={{padding: 0}}
             >
               <MoreIcon />
             </IconButton>

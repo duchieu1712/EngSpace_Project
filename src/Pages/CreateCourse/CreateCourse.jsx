@@ -41,7 +41,7 @@ export default function CreateCourse() {
     is_public: true,
     name: "",
     description: "",
-    // image: "",
+    // image: {},
     user: {
       username: currentUser.username,
     },
@@ -57,7 +57,7 @@ export default function CreateCourse() {
     // if (type === "image") {
     //   setCourse((obj) => ({
     //     ...obj,
-    //     image: e.target.file[0],
+    //     image: e.target.files[0],
     //   }));
     // } else {
       setCourse((obj) => ({ ...obj, [type]: e.target.value }));
@@ -82,6 +82,7 @@ export default function CreateCourse() {
   };
   const handleSubmit = () => {
     dispatch(addCourse(course))
+    console.log(course);
     setOpen(true);
   };
   return (

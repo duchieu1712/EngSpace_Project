@@ -32,7 +32,12 @@ const Course = (props) => {
                 gutterBottom
                 variant="h5"
                 component="div"
-                style={{ marginBottom: 0 }}
+                style={{
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  marginBottom: 0,
+                }}
               >
                 {course.name}
               </Typography>
